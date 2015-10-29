@@ -4,9 +4,9 @@
       console.log("error", error);
     };
 
-    console.log(result);
+    console.log(result[1].year);
 
-    Session.set("dataTable", result);
+    Session.set("dataTable", result[1].year);
   });
   
   Template.dataTable.helpers({
