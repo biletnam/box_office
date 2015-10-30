@@ -34,9 +34,9 @@
       	var page_view = Meteor.http.get("http://www.the-numbers.com/movie/" + title_url + "#tab=summary")
       	$ = cheerio.load(page_view.content);
       	var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
-
-
-      	data = {title, release_date, title_url, production_budget}
+      	var keywords = $('#summary > p > table > tr:nth-child(8) > td:nth-child(2)').text();
+      	var keywords_array = keywords.split(', ') 
+      	data = {title, release_date, title_url, production_budget,keywords, keywords_array}
       	return data
 
       }
