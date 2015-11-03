@@ -68,13 +68,51 @@ if (Years.find().count() === 0) {
         // var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
         // var keywords = $('#summary > p > table > tr:nth-child(8) > td:nth-child(2)').text();
         // var keywords_array = keywords.split(', ') 
-          
+          if (release_year_int === calendar_year) {
           data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year, tickets_sold, clean_title_url, super_clean_url})
-        
+        }
       }
+      }
+      if (Movies.find().count() === 0) {
+      for(var i=0;i<75;i++){
 
-    }
+      Movies.insert({
+        movie_title: data[i].movie_title,
+        release_date: data[i].release_date,
+        release_year: data[i].release_year_int,
+        distributor: data[i].distributor,
+        genre: data[i].genre,
+        rating: data[i].rating,
+        gross_in_year: data[i].gross_in_year,
+        tickets_sold: data[i].tickets_sold,
+        title_url: data[i].super_clean_url
+    })
+  }
+}
     return data
+  //         if (Movies.find().count() === 0) {
+  //            for(var i=0;i<2001;i++){
+
+  //     Movies.insert({
+  //         movie_title: data[i].movie_title
+  //   //     release_date: data[i].release_date,
+  //   //     release_year: data[i].release_year_int,
+  //   //     distributor: data[i].distributor,
+  //   //     genre: data[i].genre,
+  //   //     rating: data[i].rating,
+  //   //     gross_in_year: data[i].gross_in_year,
+  //   //     tickets_sold: data[i].tickets_sold,
+  //   //     clean_title_url: data[i].clean_title_url
+  //   // })
+  //   });
+  // }
+
+
+
+
+
+
+  //     }
   }
 });
         
