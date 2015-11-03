@@ -3,7 +3,6 @@
    var cheerio = Meteor.npmRequire('cheerio');
 
 
-
    Meteor.methods({
       getMovieData: function () {
 
