@@ -1,5 +1,6 @@
-Template.years.rendered = function(){
 
+Template.years.rendered = function(){
+	console.log(Years.find().count())
 		var data2 = Years.find().fetch();
 		console.log(data2[0].top_grossing_movie_gross * .00001)
 		var data = [data2[0].top_grossing_movie_gross * .000001, data2[1].top_grossing_movie_gross * .000001];
@@ -12,8 +13,9 @@ Template.years.rendered = function(){
 
 }
 
-// Template.years.helpers({
-//   data: function () {
-//     	return Years.find()
-//   }
-// })
+Template.years.helpers({
+  data: function () {
+    	return Years.find().count()
+    
+  }
+})
