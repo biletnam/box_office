@@ -1,10 +1,8 @@
 
-  // Meteor.startup(function () {
-  //  var cheerio = Meteor.npmRequire('cheerio');
+ //  Meteor.startup(function () {
+ //   var cheerio = Meteor.npmRequire('cheerio');
+ // })
 
-if (Years.find().count() > 20) {
-  console.log('sup')
-}
   
 
    Meteor.methods({
@@ -39,8 +37,59 @@ if (Years.find().count() === 0) {
   }
 }
         return movie_data
-}
+},
+
+ seedAnnualTopGrossing: function () {
+  var cheerio = Meteor.npmRequire('cheerio');
+         var year
+       var counter
+       var data = []
+        
+       for (year=1995; year<2015; year++) {
+       var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
+       $ = cheerio.load(result.content);
+        for (counter=2; counter<20; counter++) {
+        var title = $("table > tr:nth-child(" + counter  + ") >td:nth-child(2)").text();
+        var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
+        var release_year = release_date.slice(-4);
+        var calendar_year = year
+        var distributor = $("table > tr:nth-child(" + counter + ") >td:nth-child(4)").text();
+        var genre = $("table > tr:nth-child("+ counter + ") >td:nth-child(5)").text();
+        var rating = $("table > tr:nth-child("+ counter +") >td:nth-child(6)").text();
+        var gross_in_year =  $("table > tr:nth-child(" + counter + ") >td:nth-child(7)").text();
+        var tickets_sold = $("table > tr:nth-child(" + counter + ") >td:nth-child(8)").text();
+        var title_url = title.replace(/\s+/g, '-').toLowerCase();
+        var clean_title_url = title_url.replace(/\.|:|&/g,'')
+   
+        // var page_view = Meteor.http.get("http://www.the-numbers.com/movie/" + clean_title_url + "#tab=summary")
+        // $ = cheerio.load(page_view.content);
+        // var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
+        // var keywords = $('#summary > p > table > tr:nth-child(8) > td:nth-child(2)').text();
+        // var keywords_array = keywords.split(', ') 
+       data.push({title, release_date, release_year, distributor, genre, rating, gross_in_year, calendar_year, tickets_sold, title_url, clean_title_url})
+      }
+      if (Movies.find().count() === 0) {
+             for(var i=0;i<30;i++){
+              
+      Movies.insert({
+        title: data[i].title
+    })
+  }
+
+
+
+
+
+
+      }
+
+      return data
+    }
+  }
 });
-// });
+        
+
+
+
 
 
