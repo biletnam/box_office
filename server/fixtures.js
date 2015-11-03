@@ -52,6 +52,7 @@ if (Years.find().count() === 0) {
         var title = $("table > tr:nth-child(" + counter  + ") >td:nth-child(2)").text();
         var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
         var release_year = release_date.slice(-4);
+        var release_year_int = parseInt(release_year)
         var calendar_year = year
         var distributor = $("table > tr:nth-child(" + counter + ") >td:nth-child(4)").text();
         var genre = $("table > tr:nth-child("+ counter + ") >td:nth-child(5)").text();
@@ -66,11 +67,13 @@ if (Years.find().count() === 0) {
         // var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
         // var keywords = $('#summary > p > table > tr:nth-child(8) > td:nth-child(2)').text();
         // var keywords_array = keywords.split(', ') 
-       data.push({title, release_date, release_year, distributor, genre, rating, gross_in_year, calendar_year, tickets_sold, title_url, clean_title_url})
+        if (release_year_int === calendar_year) {
+          data.push({title, release_date, release_year_int, distributor, genre, rating, gross_in_year, calendar_year, tickets_sold, title_url, clean_title_url})
+        }
       }
       if (Movies.find().count() === 0) {
              for(var i=0;i<30;i++){
-              
+
       Movies.insert({
         title: data[i].title
     })
