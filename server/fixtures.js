@@ -5,7 +5,7 @@
 
   
 
-   Meteor.methods({
+Meteor.methods({
       getMovieData: function () {
         var cheerio = Meteor.npmRequire('cheerio');
            result = Meteor.http.get("http://www.the-numbers.com/movies/#tab=year")
@@ -41,14 +41,17 @@ if (Years.find().count() === 0) {
 
  seedAnnualTopGrossing: function () {
   var cheerio = Meteor.npmRequire('cheerio');
+
+  //     var page_view = Meteor.http.get("http://www.the-numbers.com/movie/" + clean_title_url + "#tab=summary")
+  //     $ = cheerio.load(page_view.content);
          var year
        var counter
        var data = []
         
-       for (year=1995; year<1998; year++) {
+       for (year=1995; year<1996; year++) {
           var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
           $ = cheerio.load(result.content);
-        for (counter=2; counter<25; counter++) {
+        for (counter=2; counter<5; counter++) {
         var movie_title = $("table > tr:nth-child(" + counter  + ") >td:nth-child(2)").text();
         var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
         var release_year = release_date.slice(-4);
@@ -69,26 +72,26 @@ if (Years.find().count() === 0) {
         // var keywords = $('#summary > p > table > tr:nth-child(8) > td:nth-child(2)').text();
         // var keywords_array = keywords.split(', ') 
           if (release_year_int === calendar_year) {
-          data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year, tickets_sold, clean_title_url, super_clean_url})
+          data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year, tickets_sold, super_clean_url})
         }
       }
       }
-      if (Movies.find().count() === 0) {
-      for(var i=0;i<75;i++){
+//       if (Movies.find().count() === 0) {
+//       for(var i=0;i<75;i++){
 
-      Movies.insert({
-        movie_title: data[i].movie_title,
-        release_date: data[i].release_date,
-        release_year: data[i].release_year_int,
-        distributor: data[i].distributor,
-        genre: data[i].genre,
-        rating: data[i].rating,
-        gross_in_year: data[i].gross_in_year,
-        tickets_sold: data[i].tickets_sold,
-        title_url: data[i].super_clean_url
-    })
-  }
-}
+//       Movies.insert({
+//         movie_title: data[i].movie_title,
+//         release_date: data[i].release_date,
+//         release_year: data[i].release_year_int,
+//         distributor: data[i].distributor,
+//         genre: data[i].genre,
+//         rating: data[i].rating,
+//         gross_in_year: data[i].gross_in_year,
+//         tickets_sold: data[i].tickets_sold,
+//         title_url: data[i].super_clean_url
+//     })
+//   }
+// }
     return data
   //         if (Movies.find().count() === 0) {
   //            for(var i=0;i<2001;i++){
@@ -113,8 +116,19 @@ if (Years.find().count() === 0) {
 
 
   //     }
-  }
-});
+}
+// getIndividualMovieData: function () {
+//     var cheerio = Meteor.npmRequire('cheerio');
+//     ind_movie = Meteor.http.get("http://www.the-numbers.com/movie/Mad-Max-Fury-Road#tab=summary")
+//     $ = cheerio.load(ind_movie.content);
+//     var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
+//     return production_budget
+// }
+
+
+
+
+// });
         
 
 
