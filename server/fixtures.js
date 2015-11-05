@@ -156,11 +156,21 @@ getIndividualMovieData: function () {
 
       }
 
-      console.log(title)
-      console.log(domestic_box_office_total)
-      console.log(international_box_office_total)
-      console.log(worldwide_box_office_total)
-      console.log(cast_array)
+      var crew_array = []
+
+      var crew_count = $('#cast:nth-child(2) > table').children().length
+
+
+      for(var crew_counter=1; crew_counter<crew_count; crew_counter++){
+        var position = $('#cast:nth-child(2) > table > tr:nth-child(' + crew_counter + ') > td:nth-child(1)').text()
+        var crew_person = $('#cast:nth-child(2) > table > tr:nth-child(' + crew_counter + ') > td:nth-child(3)').text()
+
+        crew_array.push({position, crew_person})
+
+      }
+
+      console.log(crew_count)
+      console.log(crew_array)
 
 
 
