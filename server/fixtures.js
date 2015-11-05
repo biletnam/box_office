@@ -97,7 +97,7 @@ Meteor.methods({
 
 getIndividualMovieData: function () {
     var production = Movies.find({release_year: 1995}).fetch();
-    for(var i=0;i<10;i++){
+    for(var i=0;i<90;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = production[i].title_url
 
@@ -112,11 +112,33 @@ getIndividualMovieData: function () {
       
       var keyword_key = $('tr').find('td').filter(':contains("Keywords:")')
       var keyword_text = keyword_key.next().text()
-      var keyword_array = keyword_text.split(', ') 
+      var keyword_array = keyword_text.split(', ')
 
-      console.log(title)
-      console.log(budget)
-      console.log(keyword_array)
+      var running_time_key = $('tr').find('td').filter(':contains("Running Time:")')
+      var running_time = running_time_key.next().text() 
+
+      var franchise_key = $('tr').find('td').filter(':contains("Franchise:")')
+      var franchise = franchise_key.next().text() 
+
+      var source_key = $('tr').find('td').filter(':contains("Source:")')
+      var source = source_key.next().text() 
+
+      var production_method_key = $('tr').find('td').filter(':contains("Production&nbsp;Method:")')
+      var production_method = production_method_key.next().text() 
+
+      var creative_type_key = $('tr').find('td').filter(':contains("Creative&nbsp;Type:")')
+      var creative_type = creative_type_key.next().text() 
+
+      var production_company_key = $('tr').find('td').filter(':contains("Production Companies:")')
+      var production_company_text = production_company_key.next().text()
+      var production_company_array = production_company_text.split(', ')
+
+      var production_countries_key = $('tr').find('td').filter(':contains("Production Countries:")')
+      var production_countries_text = production_countries_key.next().text()
+      var production_countries_array = production_countries_text.split(', ')
+
+
+      console.log(production_countries_array)
 
     }
     return production_budget
