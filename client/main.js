@@ -24,24 +24,24 @@ if (Years.find().count() === 0) {
 });
 }
 
-// Meteor.call('seedAnnualTopGrossing', function(error, data) {
-//   if (error) {
-//     console.log('error', error);
-//   };
+Meteor.call('seedAnnualTopGrossing', function(error, data) {
+  if (error) {
+    console.log('error', error);
+  };
 
-//   console.log(data)
-//   // Session.set("dataTable", data)
+  console.log(data)
 
-// });
 
-Meteor.call('getIndividualMovieData', function(error, result) {
-    if (error) {
-      console.log("error", error);
-    };
-
-    console.log(result)
-    
 });
+
+// Meteor.call('getIndividualMovieData', function(error, result) {
+//     if (error) {
+//       console.log("error", error);
+//     };
+
+//     console.log(result)
+    
+// });
   
 
 
