@@ -1,10 +1,9 @@
 Meteor.subscribe('years')
 
-if (Years.find().count() === 0) {
-  Meteor.call('getMovieData', function(error, result) {
-    if (error) {
-      console.log("error", error);
-    };
+  // Meteor.call('getMovieData', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
     
 
    
@@ -17,31 +16,30 @@ if (Years.find().count() === 0) {
   //     top_grossing_movie_gross: result[i].top_grossing_movie_gross_clean
   //   })
   // }
-  console.log(result[5])
+//   console.log(result[5])
 
 
 
-});
-}
-
-Meteor.call('seedAnnualTopGrossing', function(error, data) {
-  if (error) {
-    console.log('error', error);
-  };
-
-  console.log(data)
-
-
-});
-
-// Meteor.call('getIndividualMovieData', function(error, result) {
-//     if (error) {
-//       console.log("error", error);
-//     };
-
-//     console.log(result)
-    
 // });
+
+// Meteor.call('seedAnnualTopGrossing', function(error, data) {
+//   if (error) {
+//     console.log('error', error);
+//   };
+
+//   console.log(data)
+
+
+// });
+
+Meteor.call('getIndividualMovieData', function(error, result) {
+    if (error) {
+      console.log("error", error);
+    };
+
+    console.log(result)
+    
+});
   
 
 

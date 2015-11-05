@@ -40,10 +40,10 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=1995; year<2015; year++) {
+  for (year=2000; year<2005; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
-      for (counter=2; counter<202; counter++) {
+      for (counter=2; counter<102; counter++) {
         var movie_title = $("table > tr:nth-child(" + counter  + ") >td:nth-child(2)").text();
         console.log(movie_title)
         var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
@@ -58,13 +58,14 @@ Meteor.methods({
         var title_url = movie_title.replace(/\s+/g, '-').toLowerCase();
         var clean_title_url = title_url.replace(/\.|:|/g,'')
         var super_clean_url = clean_title_url.replace('&', 'and');
+        if(super_clean_url)
         if (release_year_int === calendar_year) {
           data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year_of_release, tickets_sold, super_clean_url})
           }
         }
       }
       if (Movies.find().count() === 0) {
-      for(var i=0;i<3800;i++){
+      for(var i=0;i<500;i++){
 
       Movies.insert({
         movie_title: data[i].movie_title,
@@ -80,16 +81,23 @@ Meteor.methods({
     }
   }
     return data
-  }
+  },
 
 
-// getIndividualMovieData: function () {
-//     var cheerio = Meteor.npmRequire('cheerio');
-//     ind_movie = Meteor.http.get("http://www.the-numbers.com/movie/Mad-Max-Fury-Road#tab=summary")
-//     $ = cheerio.load(ind_movie.content);
-//     var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
-//     return production_budget
-// }
+getIndividualMovieData: function () {
+    var production = Movies.find({release_year: 1995}).fetch();
+    for(var i=0;i<90;i++){
+      var cheerio = Meteor.npmRequire('cheerio');
+      var title = production[i].title_url
+      ind_movie = Meteor.http.get("http://www.the-numbers.com/movie/" + title + "#tab=summary")
+      $ = cheerio.load(ind_movie.content);
+      var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
+      console.log(production_budget)
+      console.log(title)
+    }
+    return production_budget
+    console.log(production_budget)
+}
 
 
 });
