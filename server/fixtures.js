@@ -61,9 +61,15 @@ Meteor.methods({
         if(super_clean_url.startsWith('the')) {
           var remove_the = super_clean_url.replace('the-','');
           final_url = remove_the.concat('-the')
+        } else if(super_clean_url.startsWith('a-')) {
+          var remove_a = super_clean_url.replace('a-','');
+          final_url = remove_a.concat('-a')
+        } else if(super_clean_url == "mad-love") {
+          final_url = super_clean_url.concat('-('+ release_year + ')')
         } else {
           final_url = super_clean_url
         }
+
         if (release_year_int === calendar_year) {
           data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year_of_release, tickets_sold, final_url})
           }
@@ -94,6 +100,7 @@ getIndividualMovieData: function () {
     for(var i=0;i<90;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = production[i].title_url
+
       ind_movie = Meteor.http.get("http://www.the-numbers.com/movie/" + title + "#tab=summary")
       $ = cheerio.load(ind_movie.content);
       var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
