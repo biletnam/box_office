@@ -97,7 +97,7 @@ Meteor.methods({
 
 getIndividualMovieData: function () {
     var production = Movies.find({release_year: 1995}).fetch();
-    for(var i=0;i<90;i++){
+    for(var i=0;i<10;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = production[i].title_url
 
@@ -146,10 +146,23 @@ getIndividualMovieData: function () {
       var production_countries_text = production_countries_key.next().text()
       var production_countries_array = production_countries_text.split(', ')
 
+      var cast_array = []
+
+      var cast_count = $('#cast:nth-child(1) > table').children().length
+
+      for(var counter=1; counter<cast_count; counter++){
+        var cast = $('#cast:nth-child(1) > table > tr:nth-child(' + counter + ') > td:nth-child(1)').text()
+        cast_array.push(cast)
+
+      }
+
       console.log(title)
       console.log(domestic_box_office_total)
       console.log(international_box_office_total)
       console.log(worldwide_box_office_total)
+      console.log(cast_array)
+
+
 
 
     }
