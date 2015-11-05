@@ -40,10 +40,10 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=2000; year<2005; year++) {
+  for (year=1995; year<1997; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
-      for (counter=2; counter<102; counter++) {
+      for (counter=2; counter<20; counter++) {
         var movie_title = $("table > tr:nth-child(" + counter  + ") >td:nth-child(2)").text();
         console.log(movie_title)
         var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
@@ -58,9 +58,14 @@ Meteor.methods({
         var title_url = movie_title.replace(/\s+/g, '-').toLowerCase();
         var clean_title_url = title_url.replace(/\.|:|/g,'')
         var super_clean_url = clean_title_url.replace('&', 'and');
-        if(super_clean_url)
+        if(super_clean_url.startsWith('the')) {
+          var remove_the = super_clean_url.replace('the-','');
+          final_url = remove_the.concat('-the')
+        } else {
+          final_url = super_clean_url
+        }
         if (release_year_int === calendar_year) {
-          data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year_of_release, tickets_sold, super_clean_url})
+          data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year_of_release, tickets_sold, final_url})
           }
         }
       }
@@ -76,7 +81,7 @@ Meteor.methods({
         rating: data[i].rating,
         gross_in_year_of_release: data[i].gross_in_year_of_release,
         tickets_sold: data[i].tickets_sold,
-        title_url: data[i].super_clean_url
+        title_url: data[i].final_url
       })
     }
   }
@@ -86,17 +91,23 @@ Meteor.methods({
 
 getIndividualMovieData: function () {
     var production = Movies.find({release_year: 1995}).fetch();
-    for(var i=0;i<90;i++){
+    for(var i=0;i<18;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = production[i].title_url
       ind_movie = Meteor.http.get("http://www.the-numbers.com/movie/" + title + "#tab=summary")
       $ = cheerio.load(ind_movie.content);
       var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
-      console.log(production_budget)
+      if (production_budget.startsWith('$')) {
+        budget = production_budget
+      } else {
+        budget = "N/A"
+      }
+        
+
+      console.log(budget)
       console.log(title)
     }
     return production_budget
-    console.log(production_budget)
 }
 
 
