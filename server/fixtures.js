@@ -97,7 +97,7 @@ Meteor.methods({
 
 getIndividualMovieData: function () {
     var production = Movies.find({release_year: 1995}).fetch();
-    for(var i=0;i<90;i++){
+    for(var i=0;i<10;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = production[i].title_url
 
@@ -109,10 +109,15 @@ getIndividualMovieData: function () {
       } else {
         budget = "N/A"
       }
-        
+      
+      var keyword_key = $('tr').find('td').filter(':contains("Keywords:")')
+      var keyword_text = keyword_key.next().text()
+      var keyword_array = keyword_text.split(', ') 
 
-      console.log(budget)
       console.log(title)
+      console.log(budget)
+      console.log(keyword_array)
+
     }
     return production_budget
 }
