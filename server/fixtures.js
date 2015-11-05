@@ -109,6 +109,15 @@ getIndividualMovieData: function () {
       } else {
         budget = "N/A"
       }
+
+      var domestic_box_office_total_key = $('tr').find('td').filter(':contains("Domestic Box Office")')
+      var domestic_box_office_total = domestic_box_office_total_key.next().text() 
+
+      var international_box_office_total_key = $('tr').find('td').filter(':contains("International Box Office")')
+      var international_box_office_total = international_box_office_total_key.next().text()
+
+      var worldwide_box_office_total_key = $('tr').find('td').filter(':contains("Worldwide Box Office")')
+      var worldwide_box_office_total = worldwide_box_office_total_key.next().text()  
       
       var keyword_key = $('tr').find('td').filter(':contains("Keywords:")')
       var keyword_text = keyword_key.next().text()
@@ -137,8 +146,11 @@ getIndividualMovieData: function () {
       var production_countries_text = production_countries_key.next().text()
       var production_countries_array = production_countries_text.split(', ')
 
+      console.log(title)
+      console.log(domestic_box_office_total)
+      console.log(international_box_office_total)
+      console.log(worldwide_box_office_total)
 
-      console.log(production_countries_array)
 
     }
     return production_budget
