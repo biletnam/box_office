@@ -40,10 +40,10 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=1995; year<1997; year++) {
+  for (year=1995; year<1996; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
-      for (counter=2; counter<20; counter++) {
+      for (counter=2; counter<102; counter++) {
         var movie_title = $("table > tr:nth-child(" + counter  + ") >td:nth-child(2)").text();
         console.log(movie_title)
         var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
@@ -91,7 +91,7 @@ Meteor.methods({
 
 getIndividualMovieData: function () {
     var production = Movies.find({release_year: 1995}).fetch();
-    for(var i=0;i<18;i++){
+    for(var i=0;i<90;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = production[i].title_url
       ind_movie = Meteor.http.get("http://www.the-numbers.com/movie/" + title + "#tab=summary")
