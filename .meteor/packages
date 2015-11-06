@@ -25,3 +25,4 @@ materialize:materialize@=0.97.0
 
 npm-container
 iron:router
+maazalik:highcharts
