@@ -22,11 +22,11 @@ Meteor.methods({
       for(var i=0;i<30;i++){
 
       Years.insert({
-      year: movie_data[i].year,
-      top_grossing_movie_title: movie_data[i].top_grossing_movie_title,
-      top_grossing_movie_genre: movie_data[i].top_grossing_movie_title,
-      top_grossing_movie_production_budget: movie_data[i].top_grossing_movie_production_budget_clean,
-      top_grossing_movie_gross: movie_data[i].top_grossing_movie_gross_clean
+        year: movie_data[i].year,
+        top_grossing_movie_title: movie_data[i].top_grossing_movie_title,
+        top_grossing_movie_genre: movie_data[i].top_grossing_movie_title,
+        top_grossing_movie_production_budget: movie_data[i].top_grossing_movie_production_budget_clean,
+        top_grossing_movie_gross: movie_data[i].top_grossing_movie_gross_clean
       })
     }
   }
@@ -40,11 +40,11 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=1995; year<1996; year++) {
+  for (year=1995; year<1997; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
       for (counter=2; counter<102; counter++) {
-        var movie_title = $("table > tr:nth-child(" + counter  + ") >td:nth-child(2)").text();
+        var movie_title = $("table > tr:nth-child(" + counter + ") >td:nth-child(2)").text();
         console.log(movie_title)
         var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
         var release_year = release_date.slice(-4);
@@ -66,6 +66,8 @@ Meteor.methods({
           final_url = remove_a.concat('-a')
         } else if(super_clean_url == "mad-love") {
           final_url = super_clean_url.concat('-('+ release_year + ')')
+        } else if(super_clean_url == "escape-from-la") {
+          final_url = "escape-from-l-a" 
         } else {
           final_url = super_clean_url
         }
@@ -76,7 +78,7 @@ Meteor.methods({
         }
       }
       if (Movies.find().count() === 0) {
-      for(var i=0;i<500;i++){
+      for(var i=0;i<178;i++){
 
       Movies.insert({
         movie_title: data[i].movie_title,
@@ -96,19 +98,13 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var production = Movies.find({release_year: 1995}).fetch();
-    for(var i=0;i<10;i++){
+    var movie = Movies.find({release_year: 1996}).fetch();
+    for(var i=0;i<87;i++){
       var cheerio = Meteor.npmRequire('cheerio');
-      var title = production[i].title_url
+      var title = movie[i].title_url
 
       ind_movie = Meteor.http.get("http://www.the-numbers.com/movie/" + title + "#tab=summary")
       $ = cheerio.load(ind_movie.content);
-      var production_budget = $('#summary > p > table > tr:nth-child(1) > td:nth-child(2)').text();
-      if (production_budget.startsWith('$')) {
-        budget = production_budget
-      } else {
-        budget = "N/A"
-      }
 
       var domestic_box_office_total_key = $('tr').find('td').filter(':contains("Domestic Box Office")')
       var domestic_box_office_total = domestic_box_office_total_key.next().text() 
@@ -118,6 +114,10 @@ getIndividualMovieData: function () {
 
       var worldwide_box_office_total_key = $('tr').find('td').filter(':contains("Worldwide Box Office")')
       var worldwide_box_office_total = worldwide_box_office_total_key.next().text()  
+
+
+      var production_budget_key = $('tr').find('td').filter(':contains("Production&nbsp;Budget:")')
+      var production_budget = production_budget_key.next().text()  
       
       var keyword_key = $('tr').find('td').filter(':contains("Keywords:")')
       var keyword_text = keyword_key.next().text()
@@ -169,14 +169,34 @@ getIndividualMovieData: function () {
 
       }
 
-      console.log(crew_count)
-      console.log(crew_array)
+      console.log(title)
+      console.log(production_budget)
 
+      console.log(movie[i]._id)
 
+      Movies.update(movie[i]._id, {
+        $set: {
+          domestic_box_office_total: domestic_box_office_total,
+          international_box_office_total: international_box_office_total,
+          worldwide_box_office_total: worldwide_box_office_total,
+          production_budget: production_budget,
+          keyword_array: keyword_array,
+          running_time: running_time,
+          franchise: franchise,
+          source: source,
+          production_method: production_method,
+          creative_type: creative_type,
+          production_company_array: production_company_array,
+          production_countries_array: production_countries_array,
+          cast_array: cast_array,
+          crew_array: crew_array
 
+        }
+
+      })
 
     }
-    return production_budget
+
 }
 
 
