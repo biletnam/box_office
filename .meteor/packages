@@ -24,5 +24,4 @@ materialize:materialize@=0.97.0
 
 
 npm-container
-d3
 iron:router
