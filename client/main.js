@@ -22,15 +22,15 @@ Meteor.subscribe('years')
 
 // });
 
-Meteor.call('seedAnnualTopGrossing', function(error, data) {
-  if (error) {
-    console.log('error', error);
-  };
+// Meteor.call('seedAnnualTopGrossing', function(error, data) {
+//   if (error) {
+//     console.log('error', error);
+//   };
 
-  console.log(data)
+//   console.log(data)
 
 
-});
+// });
 
 // Meteor.call('getIndividualMovieData', function(error, result) {
 //     if (error) {

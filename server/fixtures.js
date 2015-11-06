@@ -98,7 +98,7 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 1996}).fetch();
+    var movie = Movies.find({release_year: 1995}).fetch();
     for(var i=0;i<87;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
