@@ -40,13 +40,16 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=1995; year<1997; year++) {
+  for (year=1997; year<1998; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
       for (counter=2; counter<102; counter++) {
         var movie_title = $("table > tr:nth-child(" + counter + ") >td:nth-child(2)").text();
         console.log(movie_title)
         var release_date = $("table > tr:nth-child(" + counter + ") >td:nth-child(3)").text();
+        var release_array = release_date.split("/")
+        var release_month = parseInt(release_array[0])
+        var release_day = parseInt(release_array[1])
         var release_year = release_date.slice(-4);
         var release_year_int = parseInt(release_year)
         var calendar_year = year
@@ -58,31 +61,60 @@ Meteor.methods({
         var title_url = movie_title.replace(/\s+/g, '-').toLowerCase();
         var clean_title_url = title_url.replace(/\.|:|/g,'')
         var super_clean_url = clean_title_url.replace('&', 'and');
+
+        if(movie_title == "Titanic in 3D") {
+          var movie_title = "Titanic"
+          var release_year_int = 1997
+          var super_clean_url = "titanic"
+        }
+
+        if(movie_title == "The Lost World: Jurassic Park") {
+          var super_clean_url = "lost-world-jurassic-park"
+        }
+
+        if(movie_title == "Face/Off") {
+          var super_clean_url = "face-off"
+        }
+
+        if(movie_title == "Grosse Pointe Blank") {
+          var super_clean_url = "grosse-point-blank"
+        }
+
+         if(movie_title == "An American Werewolf in Paris") {
+          var super_clean_url = "american-werewolf-in-paris-an"
+        }
+        
         if(super_clean_url.startsWith('the')) {
           var remove_the = super_clean_url.replace('the-','');
-          final_url = remove_the.concat('-the')
+          var final_url = remove_the.concat('-the')
         } else if(super_clean_url.startsWith('a-')) {
           var remove_a = super_clean_url.replace('a-','');
-          final_url = remove_a.concat('-a')
+          var final_url = remove_a.concat('-a') 
         } else if(super_clean_url == "mad-love") {
-          final_url = super_clean_url.concat('-('+ release_year + ')')
+          var final_url = super_clean_url.concat('-('+ release_year + ')')
         } else if(super_clean_url == "escape-from-la") {
-          final_url = "escape-from-l-a" 
+          var final_url = "escape-from-l-a"
+        } else if(super_clean_url == "la-confidential") {
+          var final_url = "l-a-confidential"
+        } else if(super_clean_url == "gijane") {
+          var final_url = "g-i-jane"
         } else {
-          final_url = super_clean_url
+          var final_url = super_clean_url
         }
 
         if (release_year_int === calendar_year) {
-          data.push({movie_title, release_date, release_year_int, distributor, genre, rating, gross_in_year_of_release, tickets_sold, final_url})
+          data.push({movie_title, release_date, release_day, release_month, release_year_int, distributor, genre, rating, gross_in_year_of_release, tickets_sold, final_url})
           }
         }
       }
-      if (Movies.find().count() === 0) {
-      for(var i=0;i<178;i++){
+      if (Movies.find({release_year: 1997}).count() === 0) {
+      for(var i=0;i<85;i++){
 
       Movies.insert({
         movie_title: data[i].movie_title,
         release_date: data[i].release_date,
+        release_day: data[i].release_day,
+        release_month: data[i].release_month,
         release_year: data[i].release_year_int,
         distributor: data[i].distributor,
         genre: data[i].genre,
@@ -98,8 +130,8 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 1995}).fetch();
-    for(var i=0;i<87;i++){
+    var movie = Movies.find({release_year: 1997}).fetch();
+    for(var i=0;i<100;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
 
