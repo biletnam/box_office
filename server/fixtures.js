@@ -80,9 +80,42 @@ Meteor.methods({
           var super_clean_url = "grosse-point-blank"
         }
 
-         if(movie_title == "An American Werewolf in Paris") {
+        if(movie_title == "An American Werewolf in Paris") {
           var super_clean_url = "american-werewolf-in-paris-an"
         }
+
+        if(movie_title == "The Mask of Zorro") {
+          var super_clean_url = "mask-of-zorro"
+        }
+
+        if(movie_title == "The Prince of Egypt") {
+          var super_clean_url = "prince-of-egypt"
+        }
+
+        if(movie_title == "The Man in the Iron Mask") {
+          var super_clean_url = "man-in-the-iron-mask"
+        }
+
+        if(movie_title == "The Object of my Affection") {
+          var super_clean_url = "object-of-my-affection"
+        }
+
+        if(movie_title == "The Replacement Killers") {
+          var super_clean_url = "replacement-killers"
+        }
+
+        if(movie_title == "The Odd Couple II") {
+          var super_clean_url = "Odd-Couple-II"
+        }
+
+        if(movie_title == "Mystery Men") {
+          var super_clean_url = "mystery-men-the"
+        }
+
+        if(movie_title == "An Ideal Husband") {
+          var super_clean_url = "ideal-husband-an"
+        }
+        
         
         if(super_clean_url.startsWith('the')) {
           var remove_the = super_clean_url.replace('the-','');
@@ -90,7 +123,7 @@ Meteor.methods({
         } else if(super_clean_url.startsWith('a-')) {
           var remove_a = super_clean_url.replace('a-','');
           var final_url = remove_a.concat('-a') 
-        } else if(super_clean_url == "mad-love") {
+        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations") {
           var final_url = super_clean_url.concat('-('+ release_year + ')')
         } else if(super_clean_url == "escape-from-la") {
           var final_url = "escape-from-l-a"
@@ -98,6 +131,8 @@ Meteor.methods({
           var final_url = "l-a-confidential"
         } else if(super_clean_url == "gijane") {
           var final_url = "g-i-jane"
+        } else if(super_clean_url == "us-marshals") {
+          var final_url = "u-s-marshals"
         } else {
           var final_url = super_clean_url
         }
@@ -130,8 +165,8 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 1997}).fetch();
-    for(var i=0;i<100;i++){
+    var movie = Movies.find({release_year: 1999}).fetch();
+    for(var i=0;i<87;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
 
