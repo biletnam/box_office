@@ -40,7 +40,7 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=1995; year<2001; year++) {
+  for (year=2001; year<2002; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
       for (counter=2; counter<102; counter++) {
@@ -61,7 +61,7 @@ Meteor.methods({
         var tickets_sold_string = $("table > tr:nth-child(" + counter + ") >td:nth-child(8)").text();
         var tickets_sold = parseInt(tickets_sold_string.replace(/,/g, ''))
         var title_url = movie_title.replace(/\s+/g, '-').toLowerCase();
-        var clean_title_url = title_url.replace(/\.|:|/g,'')
+        var clean_title_url = title_url.replace(/\.|:|�/g,'')
         var super_clean_url = clean_title_url.replace('&', 'and');
 
         if(movie_title == "Titanic in 3D") {
@@ -122,8 +122,12 @@ Meteor.methods({
           var super_clean_url = "Flintstones-in-Viva-Rock-Vegas"
         }
         
-         if(movie_title == "Titan A.E.") {
+        if(movie_title == "Titan A.E.") {
           var super_clean_url = "titan-a-e"
+        }
+
+        if(movie_title == "Harry Potter and the Sorcerer�s Stone") {
+          var super_clean_url = "Harry-Potter-and-the-Sorcerers-Stone"
         }
         
         
@@ -133,7 +137,7 @@ Meteor.methods({
         } else if(super_clean_url.startsWith('a-')) {
           var remove_a = super_clean_url.replace('a-','');
           var final_url = remove_a.concat('-a') 
-        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations") {
+        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations" || super_clean_url == "planet-of-the-apes") {
           var final_url = super_clean_url.concat('-('+ release_year + ')')
         } else if(super_clean_url == "escape-from-la") {
           var final_url = "escape-from-l-a"
@@ -152,8 +156,8 @@ Meteor.methods({
           }
         }
       }
-      if (Movies.find({release_year: 1997}).count() === 0) {
-      for(var i=0;i<700;i++){
+      if (Movies.find({release_year: 2001}).count() === 0) {
+      for(var i=0;i<800;i++){
 
       Movies.insert({
         movie_title: data[i].movie_title,
@@ -175,8 +179,8 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 2000}).fetch();
-    for(var i=0;i<90;i++){
+    var movie = Movies.find({release_year: 2002}).fetch();
+    for(var i=0;i<87;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
 
