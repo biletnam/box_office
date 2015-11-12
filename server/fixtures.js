@@ -129,6 +129,18 @@ Meteor.methods({
         if(movie_title == "Harry Potter and the Sorcerer�s Stone") {
           var super_clean_url = "Harry-Potter-and-the-Sorcerers-Stone"
         }
+
+        if(movie_title == "The Master of Disguise") {
+          var super_clean_url = "master-of-disguise"
+        }
+
+        if(movie_title == "Fahrenheit 9/11") {
+          var super_clean_url = "Fahrenheit-9-11"
+        }
+
+        if(movie_title == "The Forgotton") {
+          var super_clean_url = "Forgotten-The"
+        }
         
         
         if(super_clean_url.startsWith('the')) {
@@ -137,7 +149,7 @@ Meteor.methods({
         } else if(super_clean_url.startsWith('a-')) {
           var remove_a = super_clean_url.replace('a-','');
           var final_url = remove_a.concat('-a') 
-        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations" || super_clean_url == "planet-of-the-apes") {
+        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations" || super_clean_url == "planet-of-the-apes" || super_clean_url == "bad-company" || super_clean_url == "underworld" || super_clean_url == "miracle" ) {
           var final_url = super_clean_url.concat('-('+ release_year + ')')
         } else if(super_clean_url == "escape-from-la") {
           var final_url = "escape-from-l-a"
@@ -179,8 +191,8 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 2002}).fetch();
-    for(var i=0;i<87;i++){
+    var movie = Movies.find({release_year: 2004}).fetch();
+    for(var i=0;i<93;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
 
