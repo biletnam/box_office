@@ -1,4 +1,4 @@
-Meteor.subscribe('movies')
+
 
   // Meteor.call('getMovieData', function(error, result) {
   //   if (error) {

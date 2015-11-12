@@ -1,37 +1,37 @@
 Meteor.methods({
-  getMovieData: function () {
-    var cheerio = Meteor.npmRequire('cheerio');
-    result = Meteor.http.get("http://www.the-numbers.com/movies/#tab=year")
-    $ = cheerio.load(result.content);
+  // getMovieData: function () {
+  //   var cheerio = Meteor.npmRequire('cheerio');
+  //   result = Meteor.http.get("http://www.the-numbers.com/movies/#tab=year")
+  //   $ = cheerio.load(result.content);
     
-    var year_increment 
-    var movie_data = []
+  //   var year_increment 
+  //   var movie_data = []
 
-    for (year_increment=8; year_increment<43; year_increment++) {
-      var year = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(1)').text();
-      var top_grossing_movie_title = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(3)').text();
-      var top_grossing_movie_genre = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(4)').text();
-      var top_grossing_movie_production_budget = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(5)').text();
-      var top_grossing_movie_production_budget_clean = Number(top_grossing_movie_production_budget.replace(/[^0-9\.]+/g,""));
-      var top_grossing_movie_gross = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(6)').text();
-      var top_grossing_movie_gross_clean = Number(top_grossing_movie_gross.replace(/[^0-9\.]+/g,""));
-      movie_data.push({year, top_grossing_movie_title, top_grossing_movie_genre, top_grossing_movie_production_budget_clean, top_grossing_movie_gross_clean})
-    }
+  //   for (year_increment=8; year_increment<43; year_increment++) {
+  //     var year = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(1)').text();
+  //     var top_grossing_movie_title = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(3)').text();
+  //     var top_grossing_movie_genre = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(4)').text();
+  //     var top_grossing_movie_production_budget = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(5)').text();
+  //     var top_grossing_movie_production_budget_clean = Number(top_grossing_movie_production_budget.replace(/[^0-9\.]+/g,""));
+  //     var top_grossing_movie_gross = $('#year > p > table > tr:nth-child('+ year_increment +') > td:nth-child(6)').text();
+  //     var top_grossing_movie_gross_clean = Number(top_grossing_movie_gross.replace(/[^0-9\.]+/g,""));
+  //     movie_data.push({year, top_grossing_movie_title, top_grossing_movie_genre, top_grossing_movie_production_budget_clean, top_grossing_movie_gross_clean})
+  //   }
     
-    if (Years.find().count() === 0) {
-      for(var i=0;i<30;i++){
+  //   if (Years.find().count() === 0) {
+  //     for(var i=0;i<30;i++){
 
-      Years.insert({
-        year: movie_data[i].year,
-        top_grossing_movie_title: movie_data[i].top_grossing_movie_title,
-        top_grossing_movie_genre: movie_data[i].top_grossing_movie_title,
-        top_grossing_movie_production_budget: movie_data[i].top_grossing_movie_production_budget_clean,
-        top_grossing_movie_gross: movie_data[i].top_grossing_movie_gross_clean
-      })
-    }
-  }
-    return movie_data
-  },
+  //     Years.insert({
+  //       year: movie_data[i].year,
+  //       top_grossing_movie_title: movie_data[i].top_grossing_movie_title,
+  //       top_grossing_movie_genre: movie_data[i].top_grossing_movie_title,
+  //       top_grossing_movie_production_budget: movie_data[i].top_grossing_movie_production_budget_clean,
+  //       top_grossing_movie_gross: movie_data[i].top_grossing_movie_gross_clean
+  //     })
+  //   }
+  // }
+  //   return movie_data
+  // },
 
  seedAnnualTopGrossing: function () {
   var cheerio = Meteor.npmRequire('cheerio');
@@ -40,7 +40,7 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=1997; year<1998; year++) {
+  for (year=1995; year<2001; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
       for (counter=2; counter<102; counter++) {
@@ -56,8 +56,10 @@ Meteor.methods({
         var distributor = $("table > tr:nth-child(" + counter + ") >td:nth-child(4)").text();
         var genre = $("table > tr:nth-child("+ counter + ") >td:nth-child(5)").text();
         var rating = $("table > tr:nth-child("+ counter +") >td:nth-child(6)").text();
-        var gross_in_year_of_release =  $("table > tr:nth-child(" + counter + ") >td:nth-child(7)").text();
-        var tickets_sold = $("table > tr:nth-child(" + counter + ") >td:nth-child(8)").text();
+        var gross_in_year_of_release_string =  $("table > tr:nth-child(" + counter + ") >td:nth-child(7)").text();
+        var gross_in_year_of_release = parseInt(gross_in_year_of_release_string.replace(/\$/g, '').replace(/,/g, ''));
+        var tickets_sold_string = $("table > tr:nth-child(" + counter + ") >td:nth-child(8)").text();
+        var tickets_sold = parseInt(tickets_sold_string.replace(/,/g, ''))
         var title_url = movie_title.replace(/\s+/g, '-').toLowerCase();
         var clean_title_url = title_url.replace(/\.|:|/g,'')
         var super_clean_url = clean_title_url.replace('&', 'and');
@@ -115,6 +117,14 @@ Meteor.methods({
         if(movie_title == "An Ideal Husband") {
           var super_clean_url = "ideal-husband-an"
         }
+
+        if(movie_title == "The Flintstones in Viva Rock Vegas") {
+          var super_clean_url = "Flintstones-in-Viva-Rock-Vegas"
+        }
+        
+         if(movie_title == "Titan A.E.") {
+          var super_clean_url = "titan-a-e"
+        }
         
         
         if(super_clean_url.startsWith('the')) {
@@ -143,7 +153,7 @@ Meteor.methods({
         }
       }
       if (Movies.find({release_year: 1997}).count() === 0) {
-      for(var i=0;i<85;i++){
+      for(var i=0;i<700;i++){
 
       Movies.insert({
         movie_title: data[i].movie_title,
@@ -165,8 +175,8 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 1999}).fetch();
-    for(var i=0;i<87;i++){
+    var movie = Movies.find({release_year: 2000}).fetch();
+    for(var i=0;i<90;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
 
@@ -174,24 +184,28 @@ getIndividualMovieData: function () {
       $ = cheerio.load(ind_movie.content);
 
       var domestic_box_office_total_key = $('tr').find('td').filter(':contains("Domestic Box Office")')
-      var domestic_box_office_total = domestic_box_office_total_key.next().text() 
+      var domestic_box_office_total_string = domestic_box_office_total_key.next().text()
+      var domestic_box_office_total = parseInt(domestic_box_office_total_string.replace(/\$/g, '').replace(/,/g, '')); 
 
       var international_box_office_total_key = $('tr').find('td').filter(':contains("International Box Office")')
-      var international_box_office_total = international_box_office_total_key.next().text()
+      var international_box_office_total_string = international_box_office_total_key.next().text()
+      var international_box_office_total = parseInt(international_box_office_total_string.replace(/\$/g, '').replace(/,/g, ''));
 
       var worldwide_box_office_total_key = $('tr').find('td').filter(':contains("Worldwide Box Office")')
-      var worldwide_box_office_total = worldwide_box_office_total_key.next().text()  
+      var worldwide_box_office_total_string = worldwide_box_office_total_key.next().text()
+      var worldwide_box_office_total = parseInt(worldwide_box_office_total_string.replace(/\$/g, '').replace(/,/g, ''));  
 
 
       var production_budget_key = $('tr').find('td').filter(':contains("Production&nbsp;Budget:")')
-      var production_budget = production_budget_key.next().text()  
+      var production_budget_string = production_budget_key.next().text()
+      var production_budget = parseInt(production_budget_string.replace(/\$/g, '').replace(/,/g, ''));    
       
       var keyword_key = $('tr').find('td').filter(':contains("Keywords:")')
       var keyword_text = keyword_key.next().text()
       var keyword_array = keyword_text.split(', ')
 
       var running_time_key = $('tr').find('td').filter(':contains("Running Time:")')
-      var running_time = running_time_key.next().text() 
+      var running_time = parseInt(running_time_key.next().text()) 
 
       var franchise_key = $('tr').find('td').filter(':contains("Franchise:")')
       var franchise = franchise_key.next().text() 
