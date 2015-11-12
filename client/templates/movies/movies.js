@@ -1,19 +1,35 @@
 Template.movies.helpers({
   movies: function() {
-    return Movies.find().count();
+    return Movies.find({release_month: 1}).fetch()[1].movie_title;
   }
 });
 
 Template.movies.rendered = function() { 
 Tracker.autorun(function () {
-     builtColumn()
+    month_count = Movies.find({release_month: 1}).count();
+    release_month = Movies.find({release_month: 1});
+    if (month_count>0) {
+        builtColumn()
+    }   
   });
 }
 
 
 function builtColumn() {
-    var data = Movies.find({}).count();
-    console.log(data)
+    console.log(release_month)
+
+    var releases = release_month
+    var seriesData = []
+
+    releases.forEach(function(release) {
+        var dataPoint = [release.movie_title, release.release_year, release.domestic_box_office_total];
+        seriesData.push(dataPoint);
+    });
+
+    hog = (seriesData[1])[1]
+
+    console.log(hog)
+
 
     $('#container-column').highcharts({
         chart: {
@@ -21,7 +37,7 @@ function builtColumn() {
         },
         
         title: {
-            text: 'Monthly Average Rainfall'
+            text: 'Total Gross by Year'
         },
         
         subtitle: {
@@ -52,7 +68,7 @@ function builtColumn() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Rainfall (mm)'
+                text: 'Total Gross'
             }
         },
         
@@ -74,7 +90,7 @@ function builtColumn() {
         
         series: [{
             name: 'Tokyo',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            data: [100, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
 
         }, {
             name: 'New York',
