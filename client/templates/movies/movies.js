@@ -1,14 +1,19 @@
 Template.movies.helpers({
-
+  movies: function() {
+    return Movies.find().count();
+  }
 });
 
 Template.movies.rendered = function() { 
-    builtColumn()
+Tracker.autorun(function () {
+     builtColumn()
+  });
 }
 
 
 function builtColumn() {
-
+    var data = Movies.find({}).count();
+    console.log(data)
 
     $('#container-column').highcharts({
         chart: {
