@@ -141,6 +141,38 @@ Meteor.methods({
         if(movie_title == "The Forgotton") {
           var super_clean_url = "Forgotten-The"
         }
+
+        if(movie_title == "The War of the Worlds") {
+          var super_clean_url = "War-of-the-Worlds"
+        }
+
+        if(movie_title == "March of the Penguins") {
+          var super_clean_url = "Marche-de-l-empereur-La"
+        }
+
+        if(movie_title == "The Legend of Zorro") {
+          var super_clean_url = "Legend-of-Zorro"
+        }
+
+        if(movie_title == "R.V.") {
+          var super_clean_url = "r-v"
+        }
+
+        if(movie_title == "D�j� Vu") {
+          var super_clean_url = "Deja-Vu-(2006)"
+        }
+
+        if(movie_title == "Transformers") {
+          var super_clean_url = "transformers-the"
+        }
+
+        if(movie_title == "TMNT") {
+          var super_clean_url = "Teenage-Mutant-Ninja-Turtles-(2007)"
+        }
+        
+        if(movie_title == "P.S., I Love You") {
+          var super_clean_url = "P-S-I-Love-You"
+        }
         
         
         if(super_clean_url.startsWith('the')) {
@@ -149,7 +181,7 @@ Meteor.methods({
         } else if(super_clean_url.startsWith('a-')) {
           var remove_a = super_clean_url.replace('a-','');
           var final_url = remove_a.concat('-a') 
-        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations" || super_clean_url == "planet-of-the-apes" || super_clean_url == "bad-company" || super_clean_url == "underworld" || super_clean_url == "miracle" ) {
+        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations" || super_clean_url == "planet-of-the-apes" || super_clean_url == "bad-company" || super_clean_url == "underworld" || super_clean_url == "miracle" || super_clean_url == "heartbreak-kid-the" ) {
           var final_url = super_clean_url.concat('-('+ release_year + ')')
         } else if(super_clean_url == "escape-from-la") {
           var final_url = "escape-from-l-a"
@@ -191,8 +223,8 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 2004}).fetch();
-    for(var i=0;i<93;i++){
+    var movie = Movies.find({release_year: 2007}).fetch();
+    for(var i=0;i<94;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
 
