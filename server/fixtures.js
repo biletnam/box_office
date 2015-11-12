@@ -174,6 +174,15 @@ Meteor.methods({
           var super_clean_url = "P-S-I-Love-You"
         }
         
+        if(movie_title == "10,000 B.C.") {
+          var super_clean_url = "10-000-B-C"
+        }
+
+        if(movie_title == "Hannah Montana/Miley Cyrus: Best of Both Worlds Concert Tour") {
+          var super_clean_url = "Hannah-Montana-Miley-Cyrus-Best-of-Both-Worlds-Concert-Tour"
+        }
+        
+        
         
         if(super_clean_url.startsWith('the')) {
           var remove_the = super_clean_url.replace('the-','');
@@ -181,7 +190,7 @@ Meteor.methods({
         } else if(super_clean_url.startsWith('a-')) {
           var remove_a = super_clean_url.replace('a-','');
           var final_url = remove_a.concat('-a') 
-        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations" || super_clean_url == "planet-of-the-apes" || super_clean_url == "bad-company" || super_clean_url == "underworld" || super_clean_url == "miracle" || super_clean_url == "heartbreak-kid-the" ) {
+        } else if(super_clean_url == "mad-love" || super_clean_url == "out-of-sight" || super_clean_url == "wild-things" || super_clean_url == "great-expectations" || super_clean_url == "planet-of-the-apes" || super_clean_url == "bad-company" || super_clean_url == "underworld" || super_clean_url == "miracle" || super_clean_url == "heartbreak-kid-the" || super_clean_url == "changeling"  ) {
           var final_url = super_clean_url.concat('-('+ release_year + ')')
         } else if(super_clean_url == "escape-from-la") {
           var final_url = "escape-from-l-a"
@@ -223,8 +232,8 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 2007}).fetch();
-    for(var i=0;i<94;i++){
+    var movie = Movies.find({release_year: 2008}).fetch();
+    for(var i=0;i<100;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
 
