@@ -1,110 +1,69 @@
 Template.movies.helpers({
   movies: function() {
-    return Movies.find({release_month: 1}).fetch()[1].movie_title;
+    return Movies.find({release_month: 1}).count()
   }
 });
 
-Template.movies.rendered = function() { 
-Tracker.autorun(function () {
-    month_count = Movies.find({release_month: 1}).count();
-    release_month = Movies.find({release_month: 1});
-    if (month_count>0) {
-        builtColumn()
-    }   
-  });
-}
 
-
-function builtColumn() {
-    console.log(release_month)
-
-    var releases = release_month
-    var seriesData = []
-
-    releases.forEach(function(release) {
-        var dataPoint = [release.movie_title, release.release_year, release.domestic_box_office_total];
+Template.movies.topGenresChart = function() {
+    var movies = Movies.find({release_year: 1995}).fetch()
+    var seriesData = [];
+    
+    movies.forEach(function(movie) {
+        var dataPoint = {
+            genre: movie.genre, 
+            domestic_gross: parseInt(movie.domestic_box_office_total)};
         seriesData.push(dataPoint);
     });
+    
+    console.log(seriesData)
+    
+    var gross = alasql('SELECT genre, SUM(domestic_gross) AS gross FROM ? GROUP BY genre',[seriesData]);    
 
-    hog = (seriesData[1])[1]
+    var data = [{a:1,b:10}, {a:2,b:20}, {a:1,b:30}];
+    
+    var res = alasql('SELECT a, SUM(b) AS b FROM ? GROUP BY a',[data]);    
 
-    console.log(hog)
+    console.log(res); // [{"a":1,"b":40},{"a":2,"b":20}]
+    
+    console.log(gross);
 
-
-    $('#container-column').highcharts({
+    return {
         chart: {
-            type: 'column'
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
         },
-        
         title: {
-            text: 'Total Gross by Year'
+            text: this.username + "'s top genres"
         },
-        
-        subtitle: {
-            text: 'Source: WorldClimate.com'
-        },
-        
-        credits: {
-            enabled: false
-        },
-        
-        xAxis: {
-            categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
-            ]
-        },
-        
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Total Gross'
-            }
-        },
-        
         tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
+            pointFormat: '<b>{point.percentage:.1f}%</b>'
         },
-        
         plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    },
+                    connectorColor: 'silver'
+                }
             }
         },
-        
         series: [{
-            name: 'Tokyo',
-            data: [100, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-        }, {
-            name: 'New York',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-        }, {
-            name: 'London',
-            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-        }, {
-            name: 'Berlin',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
+            type: 'pie',
+            name: 'genre',
+            data: [
+                ['Adventure',   45.0],
+                ['Action',       26.8],
+                ['Ecchi',   12.8],
+                ['Comedy',    8.5],
+                ['Yuri',     6.2]
+            ]
         }]
-    });
-}
-
+    };
+};

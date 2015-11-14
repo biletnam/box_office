@@ -27,3 +27,5 @@ npm-container
 iron:router
 maazalik:highcharts
 sacha:spin
+autopublish
+agershun:alasql
