@@ -18,7 +18,7 @@ Template.movies.topGenresChart = function() {
     
     console.log(seriesData)
     
-    var gross = alasql('SELECT genre, SUM(domestic_gross) AS gross FROM ? GROUP BY genre',[seriesData]);    
+    var gross = alasql('SELECT genre, SUM(domestic_gross) AS gross FROM ? GROUP BY genre', [seriesData]);    
 
     var data = [{a:1,b:10}, {a:2,b:20}, {a:1,b:30}];
     
@@ -26,7 +26,19 @@ Template.movies.topGenresChart = function() {
 
     console.log(res); // [{"a":1,"b":40},{"a":2,"b":20}]
     
-    console.log(gross);
+    console.log(gross[1]);
+
+    final_data = []
+
+    for (var i = 0; i < gross.length; i++) {
+
+
+            final_data.push([gross[i].genre, gross[i].gross]);
+
+   
+    }
+
+    console.log(final_data)
 
     return {
         chart: {
