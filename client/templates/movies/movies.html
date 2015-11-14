@@ -1,4 +1,18 @@
 <template name="movies">
-	 <h2>{{movies}}</h2>
+
+
+	<div class="row">
+    <div class="col s6">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#1995">1995</a></li>
+        <li class="tab col s3"><a class="active" href="#1996">1996</a></li>
+        <li class="tab col s3 disabled"><a href="#1997">1997</a></li>
+        <li class="tab col s3"><a href="#1998">1998</a></li>
+      </ul>
+    </div>
+  </div>
+        
     {{> highchartsHelper chartId="test" chartWidth="100%" charHeight="100%" chartObject=topGenresChart}}
+
+    <div id="container-pie" style="width: 300px; height: 200px;"></div>
 </template>
