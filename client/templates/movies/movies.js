@@ -47,7 +47,7 @@ Template.movies.topGenresChart = function() {
             plotShadow: false
         },
         title: {
-            text: this.username + "'s top genres"
+            text: "Year's top genres"
         },
         tooltip: {
             pointFormat: '<b>{point.percentage:.1f}%</b>'
@@ -69,13 +69,7 @@ Template.movies.topGenresChart = function() {
         series: [{
             type: 'pie',
             name: 'genre',
-            data: [
-                ['Adventure',   45.0],
-                ['Action',       26.8],
-                ['Ecchi',   12.8],
-                ['Comedy',    8.5],
-                ['Yuri',     6.2]
-            ]
+            data: final_data
         }]
     };
 };
