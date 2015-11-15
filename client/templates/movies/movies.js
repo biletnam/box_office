@@ -1,13 +1,4 @@
-Template.movies.events({
-    "click .tab": function() {
-        word = $(".active").text();
-
-        Session.set('selectedYear', word)
-    }
-})
-
 function buildPie() {
-    Session.get('selectedYear')
     Session.get('movie_pie_data')
     var movie_pie_data = Session.get('movie_pie_data')
     
@@ -78,5 +69,19 @@ Template.movies.rendered = function() {
     });
 
 }
+
+Template.movies.events({
+    // "click .tab": function() {
+    //     word = $(".pie_year_tab").text();
+    //     console.log(word)
+    //     Session.set('selectedYear', word)
+
+    // }
+    "change #year_select": function(e) {
+        var year = $("#year_select option:selected").text();
+        console.log(year)
+        Session.set(Session.set('selectedYear', year))
+    }
+})
 
 

@@ -1,11 +1,23 @@
-<template name="layout">
 <head>
-  <title>Box Office</title>
+  <title>Subplot</title>
 </head>
 
+<template name="layout">
+
+
 <body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Subplot</a>
+      <ul id="nav-mobile" class="right">
+        <li><a href="#" id="line_chart">Line Chart</a></li>
+        <li><a href="#" id="pie_chart">Pie Chart</a></li>
+      </ul>
+    </div>
+  </nav>
 	<div class="container">
-  <h1>Box Office App</h1>
+
   {{> yield}}
 
   </div>
