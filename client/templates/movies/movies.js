@@ -59,6 +59,7 @@ function buildPie() {
 }
 
 Template.movies.rendered = function() {  
+    Session.set(Session.set('selectedYear', 1998))
     this.autorun(function () {  
         Session.get('selectedYear')
         var year = Session.get('selectedYear')
@@ -71,12 +72,6 @@ Template.movies.rendered = function() {
 }
 
 Template.movies.events({
-    // "click .tab": function() {
-    //     word = $(".pie_year_tab").text();
-    //     console.log(word)
-    //     Session.set('selectedYear', word)
-
-    // }
     "change #year_select": function(e) {
         var year = $("#year_select option:selected").text();
         console.log(year)
