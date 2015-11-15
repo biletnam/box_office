@@ -1,13 +1,14 @@
 function buildMonthlyAverageLine() {
     average_line_cursor = Session.get('averageLineData')
-
     var seriesData = []
 
     average_line_cursor.forEach(function(movie) {
+        var inflation_year = Years.findOne({year_int: 1995})
+        var inflation_rate = inflation_year.inflation_rate
         var dataPoint = {
             release_year: movie.release_year,
             release_month: movie.release_month,
-            domestic_box_office_total: movie.domestic_box_office_total
+            domestic_box_office_total: movie.domestic_box_office_total * inflation_rate
         }; 
         seriesData.push(dataPoint);
     });
@@ -43,8 +44,8 @@ function buildMonthlyAverageLine() {
         })
         .value();
 
-    var shit = apple
-    console.log(shit)
+    var final_line_data = apple
+    console.log(final_line_data)
 
 
    // var test = _.map(_.where(averaged_data, {release_year: 1995}),
@@ -62,11 +63,11 @@ function buildMonthlyAverageLine() {
 
 
         title: {
-            text: 'Monthly Average Temperature',
+            text: 'Monthly Average Gross by Year',
             x: -20 //center
         },
         subtitle: {
-            text: 'Source: WorldClimate.com',
+            text: '(Adjusted for Inflation)',
             x: -20
         },
         xAxis: {
@@ -75,7 +76,7 @@ function buildMonthlyAverageLine() {
         },
         yAxis: {
             title: {
-                text: 'Temperature (°C)'
+                text: 'Average Gross (USD)'
             },
             plotLines: [{
                 value: 0,
@@ -84,7 +85,8 @@ function buildMonthlyAverageLine() {
             }]
         },
         tooltip: {
-            valueSuffix: '°C'
+            valuePrefix: '$',
+            valueDecimals: 2
         },
         legend: {
             layout: 'vertical',
@@ -92,8 +94,12 @@ function buildMonthlyAverageLine() {
             verticalAlign: 'middle',
             borderWidth: 0
         },
-        series: shit
+        series: final_line_data
     });
+    //     $('#button').click(function () {
+    //     var chart = $('#container-line').highcharts();
+    //         chart.series[0].remove();
+    // });
 };
 
 

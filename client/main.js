@@ -1,4 +1,11 @@
 Meteor.subscribe('movies');
+Meteor.subscribe('years');
+
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: ','
+    }
+});
 
   // Meteor.call('getMovieData', function(error, result) {
   //   if (error) {
