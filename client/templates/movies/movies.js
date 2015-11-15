@@ -1,7 +1,7 @@
 function buildPie() {
     Session.get('movie_pie_data')
     var movie_pie_data = Session.get('movie_pie_data')
-    
+    var year_selected = Session.get('selectedYear')
     var seriesData = [];
     
     movie_pie_data.forEach(function(movie) {
@@ -31,7 +31,7 @@ function buildPie() {
             plotShadow: false
         },
         title: {
-            text: this.username + "'s top genres"
+            text: year_selected + " Genre Breakdown"
         },
         tooltip: {
             pointFormat: '<b>{point.percentage:.1f}%</b>'
