@@ -1,11 +1,3 @@
-Template.movies.helpers({
-  movies: function() {
-    return Movies.find().count()
-  }
-});
-
-
-
 Template.movies.events({
     "click .tab": function() {
         word = $(".active").text();
@@ -14,13 +6,12 @@ Template.movies.events({
     }
 })
 
-function builtPie() {
+function buildPie() {
     Session.get('selectedYear')
     Session.get('movie_pie_data')
     var movie_pie_data = Session.get('movie_pie_data')
-    console.log(movie_pie_data)
-
-        var seriesData = [];
+    
+    var seriesData = [];
     
     movie_pie_data.forEach(function(movie) {
         var dataPoint = {
@@ -28,14 +19,9 @@ function builtPie() {
             domestic_gross: parseInt(movie.domestic_box_office_total)};
         seriesData.push(dataPoint);
     });
-    
-    console.log(seriesData)
-
 
     var gross = alasql('SELECT genre, SUM(domestic_gross) AS gross FROM ? GROUP BY genre ORDER BY gross DESC', [seriesData]);    
     
-    console.log(gross[1]);
-
     final_data = []
 
     for (var i = 0; i < gross.length; i++) {
@@ -45,8 +31,6 @@ function builtPie() {
 
    
     }
-
-    console.log(final_data)
 
     $('#container-pie').highcharts({
 
@@ -90,7 +74,7 @@ Template.movies.rendered = function() {
         var pie_year = parseInt(year)
         var movies = Movies.find({release_year: pie_year}).fetch()
         Session.set('movie_pie_data', movies)
-        builtPie();
+        buildPie();
     });
 
 }

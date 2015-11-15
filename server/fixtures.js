@@ -20,6 +20,76 @@ if (Keywords.find().count() === 0) {
 
 }
 
+if (Years.find().count() === 0) {
+  Years.insert({
+    year_text: '1995',
+    year_int: 1995,
+    inflation_rate: 1.5686
+  });
+
+  Years.insert({
+    year_text: '1996',
+    year_int: 1996,
+    inflation_rate: 1.5297
+  });
+
+  Years.insert({
+    year_text: '1997',
+    year_int: 1997,
+    inflation_rate: 1.4805
+  });
+
+  Years.insert({
+    year_text: '1998',
+    year_int: 1998,
+    inflation_rate: 1.4557
+  });
+
+  Years.insert({
+    year_text: '1999',
+    year_int: 1999,
+    inflation_rate: 1.4327
+  });
+
+  Years.insert({
+    year_text: '2000',
+    year_int: 2000,
+    inflation_rate: 1.3952
+  });
+
+  Years.insert({
+    year_text: '2001',
+    year_int: 2001,
+    inflation_rate: 1.3495
+  });
+
+  Years.insert({
+    year_text: '2002',
+    year_int: 2002,
+    inflation_rate: 1.3289
+  });
+
+  Years.insert({
+    year_text: '2003',
+    year_int: 2003,
+    inflation_rate: 1.2980
+  });
+
+  Years.insert({
+    year_text: '2004',
+    year_int: 2004,
+    inflation_rate: 1.2741
+  });
+
+  Years.insert({
+    year_text: '2005',
+    year_int: 2005,
+    inflation_rate: 1.2339
+  });
+
+
+}
+
 
 Meteor.methods({
   seedAnnualTopGrossing: function () {
