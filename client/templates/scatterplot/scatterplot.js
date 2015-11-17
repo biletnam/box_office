@@ -2,12 +2,12 @@ function buildScatter() {
     var scatter_session_data = Session.get('scatterPlotData')
     var scatter_data = []
 
-    console.log(scatter_session_data)
+ 
 
     scatter_session_data.forEach(function(movie) {
         var dataPoint = {
-            x: movie.domestic_box_office_total,
-            y: movie.production_budget,
+            x: movie.domestic_box_office_total * .000001,
+            y: movie.production_budget * .0001,
             movie_title: movie.movie_title,
             release_year: movie.release_year
 
@@ -19,8 +19,11 @@ function buildScatter() {
  
     });
 
+    var nodata = []
 
-    console.log(scatter_data)
+    var all_chart_data = [{name: "Comedy", data: scatter_data}, {name:'', data: nodata}]
+
+    console.log(all_chart_data)
 
     $('#container-scatter').highcharts({  
        
@@ -48,8 +51,10 @@ function buildScatter() {
                 text: 'Daily fat intake'
             },
             labels: {
-                format: '{value} gr'
+                format: '{value}'
             },
+            valuePrefix: '$',
+            valueDecimals: 0
 
         },
 
@@ -60,36 +65,38 @@ function buildScatter() {
                 text: 'Daily sugar intake'
             },
             labels: {
-                format: '{value} gr'
+                format: '{value}'
             },
             maxPadding: 0.2,
+            valuePrefix: '$',
+            valueDecimals: 0
    
         },
 
         tooltip: {
-            useHTML: true,
-            headerFormat: '<table>',
-            pointFormat: '<tr><th>{point.movie_title}</th></tr>' +
-                '<tr><th>Fat intake:</th><td>{point.x}g</td></tr>' +
-                '<tr><th>Sugar intake:</th><td>{point.y}g</td></tr>' +
-                '<tr><th>Obesity (adults):</th><td>{point.z}%</td></tr>',
-            footerFormat: '</table>',
-            followPointer: true
+
+            // pointFormat: '<tr><th>{point.movie_title}</th></tr><br>' +
+            //     '<tr><th>Total Domestic BO:</th><td>{point.x}, {point.y}</td></tr><br>' +
+            //     '<tr><th>Budget:</th><td>{point.x}, {point.y}</td></tr>',
+
+            // followPointer: true,
+            // valuePrefix: '$',
+            // valueDecimals: 0
+            formatter: function() {
+                return '<b>'+ this.point.movie_title +'</b>';
+}
         },
 
         plotOptions: {
             series: {
                 dataLabels: {
-                    enabled: true
+                    enabled: false
                     // format: '{series.name}'
                 }
             }
         },
 
-        series: [{
-            name: "Comedy",
-            data: scatter_data
-        }]
+        series: all_chart_data
 
     });
 };
@@ -97,7 +104,7 @@ function buildScatter() {
 
 Template.scatterplot.rendered = function() {  
     this.autorun(function () { 
-        var movies = Movies.find({release_year: 2002}).fetch()
+        var movies = Movies.find({release_year: 1999}).fetch()
         Session.set('scatterPlotData', movies) 
         buildScatter()
     });
