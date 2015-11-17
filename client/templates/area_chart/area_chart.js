@@ -1,18 +1,38 @@
 function buildArea() {
-	area_pie_cursor = Session.get('areaChartData')
+	var area_chart_cursor = Session.get('areaChartData')
+	var area_chart_data = []
 
-	average_line_cursor.forEach(function(movie) {
+	area_chart_cursor.forEach(function(movie) {
         var movie_release_year = movie.release_year
         var inflation_year = Years.findOne({year_int: movie_release_year})
         var inflation_rate = inflation_year.inflation_rate
         var dataPoint = {
             release_year: movie.release_year,
-            release_month: movie.release_month,
-            domestic_box_office_total: movie.domestic_box_office_total * inflation_rate
-        }; 
-        seriesData.push(dataPoint);
+            domestic_box_office_total: movie.domestic_box_office_total * inflation_rate,
+            rating: movie.rating
+
+        };
+        area_chart_data.push(dataPoint);
     });
-    
+
+    var sqld_data = alasql('SELECT release_year, rating, SUM(domestic_box_office_total) AS rating_box_office_total FROM ? GROUP BY release_year, rating ORDER BY release_year, rating', [area_chart_data]); 
+
+
+
+      var prepped_data =  _.chain(sqld_data)
+        .groupBy('rating')
+        .map(function(value, key) {
+        return {
+            name: key,
+            data: _.pluck(value, 'rating_box_office_total')
+        }
+        })
+        .value();
+
+
+    console.log(sqld_data)
+    console.log(prepped_data)
+
     $('#container-area').highcharts({
         chart: {
             type: 'area'
@@ -24,7 +44,21 @@ function buildArea() {
             text: 'Source: Wikipedia.org'
         },
         xAxis: {
-            categories: ['1750', '1800', '1850', '1900', '1950', '1999', '2050'],
+            categories: ['1995', 
+            '1996', 
+            '1997', 
+            '1998', 
+            '1999', 
+            '2000', 
+            '2001',
+            '2002',
+            '2003',
+            '2004',
+            '2005',
+            '2006',
+            '2007',
+            '2008',
+           	 ],
             tickmarkPlacement: 'on',
             title: {
                 enabled: false
@@ -50,22 +84,7 @@ function buildArea() {
                 }
             }
         },
-        series: [{
-            name: 'Asia',
-            data: [502, 635, 809, 947, 1402, 3634, 14]
-        }, {
-            name: 'Africa',
-            data: [20000, 107, 111, 133, 221, 767, 1766]
-        }, {
-            name: 'Europe',
-            data: [163, 203, 276, 408, 547, 729, 628]
-        }, {
-            name: 'America',
-            data: [18, 31, 54, 156, 339, 818, 1201]
-        }, {
-            name: 'Oceania',
-            data: [2, 2, 2, 6, 13, 30, 46]
-        }]
+        series: prepped_data
     });
 }
 
