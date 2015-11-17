@@ -92,14 +92,6 @@ function buildScatter() {
         },
 
         tooltip: {
-
-            // pointFormat: '<tr><th>{point.movie_title}</th></tr><br>' +
-            //     '<tr><th>Total Domestic BO:</th><td>{point.x}, {point.y}</td></tr><br>' +
-            //     '<tr><th>Budget:</th><td>{point.x}, {point.y}</td></tr>',
-
-            // followPointer: true,
-            // valuePrefix: '$',
-            // valueDecimals: 0
             formatter: function() {
                 return '<b>'+ this.point.movie_title +'</b><br>' +
                 'Production Budget: $' + Highcharts.numberFormat(this.y, 0) + ' million' + '<br>' +
