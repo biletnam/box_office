@@ -1,5 +1,6 @@
 function buildArea() {
 	var area_chart_cursor = Session.get('areaChartData')
+	var area_chart_context = Session.get('areaChartContext')
 	var area_chart_data = []
 
 	area_chart_cursor.forEach(function(movie) {
@@ -9,29 +10,32 @@ function buildArea() {
         var dataPoint = {
             release_year: movie.release_year,
             domestic_box_office_total: movie.domestic_box_office_total * inflation_rate,
-            rating: movie.rating
+            rating: movie.rating,
+            genre: movie.genre
+
 
         };
         area_chart_data.push(dataPoint);
     });
-
-    var sqld_data = alasql('SELECT release_year, rating, SUM(domestic_box_office_total) AS rating_box_office_total FROM ? GROUP BY release_year, rating ORDER BY release_year, rating', [area_chart_data]); 
-
+	if (area_chart_context == "rating") {
+    	var sqld_data = alasql('SELECT release_year, rating, SUM(domestic_box_office_total) AS box_office_total FROM ? GROUP BY release_year, rating ORDER BY release_year, rating', [area_chart_data]); 
+    } else if (area_chart_context == "genre") {
+    	var sqld_data = alasql('SELECT release_year, genre, SUM(domestic_box_office_total) AS box_office_total FROM ? GROUP BY release_year, genre ORDER BY release_year, genre', [area_chart_data]); 
+    }
 
 
       var prepped_data =  _.chain(sqld_data)
-        .groupBy('rating')
+        .groupBy(area_chart_context)
         .map(function(value, key) {
         return {
             name: key,
-            data: _.pluck(value, 'rating_box_office_total')
+            data: _.pluck(value, 'box_office_total')
         }
         })
         .value();
 
 
-    console.log(sqld_data)
-    console.log(prepped_data)
+   	console.log(area_chart_context)
 
     $('#container-area').highcharts({
         chart: {
@@ -91,8 +95,10 @@ function buildArea() {
 Template.areaChart.rendered = function() {  
 
     this.autorun(function () {
+    	context = "genre"
     	var movies = Movies.find().fetch()
     	Session.set('areaChartData', movies)
+    	Session.set('areaChartContext', context)
         buildArea()
     });
 
