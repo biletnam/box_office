@@ -11,12 +11,14 @@ function buildArea() {
             release_year: movie.release_year,
             domestic_box_office_total: movie.domestic_box_office_total * inflation_rate,
             rating: movie.rating,
-            genre: movie.genre
+            genre: movie.genre,
+            production_method: movie.production_method
 
 
         };
         area_chart_data.push(dataPoint);
     });
+	
 	if (area_chart_context == "rating") {
     	var sqld_data = alasql('SELECT release_year, rating, SUM(domestic_box_office_total) AS box_office_total FROM ? GROUP BY release_year, rating ORDER BY release_year, rating', [area_chart_data]); 
     } else if (area_chart_context == "genre") {
@@ -33,9 +35,6 @@ function buildArea() {
         }
         })
         .value();
-
-
-   	console.log(area_chart_context)
 
     $('#container-area').highcharts({
         chart: {
@@ -95,7 +94,7 @@ function buildArea() {
 Template.areaChart.rendered = function() {  
 
     this.autorun(function () {
-    	context = "genre"
+    	context = "rating"
     	var movies = Movies.find().fetch()
     	Session.set('areaChartData', movies)
     	Session.set('areaChartContext', context)
