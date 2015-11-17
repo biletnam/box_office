@@ -1,4 +1,5 @@
 function buildScatter() {
+
     var scatter_session_data = Session.get('scatterPlotData')
     var scatter_session_data2 = Session.get('scatterPlotData2')
     var year_1 = Session.get('selectedYearScatter')
@@ -8,9 +9,12 @@ function buildScatter() {
 
 
     scatter_session_data.forEach(function(movie) {
+        var movie_release_year = movie.release_year
+        var inflation_year = Years.findOne({year_int: movie_release_year})
+        var inflation_rate = inflation_year.inflation_rate
         var dataPoint = {
-            x: movie.domestic_box_office_total * .000001,
-            y: movie.production_budget * .000001,
+            x: movie.domestic_box_office_total * inflation_rate * .000001,
+            y: movie.production_budget * inflation_rate * .000001,
             movie_title: movie.movie_title,
             release_year: movie.release_year
 
