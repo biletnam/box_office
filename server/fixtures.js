@@ -107,6 +107,42 @@ if (Years.find().count() === 0) {
   });
 
 
+  Years.insert({
+    year_text: '2009',
+    year_int: 2009,
+    inflation_rate: 1.1169
+  });
+
+  Years.insert({
+    year_text: '2010',
+    year_int: 2010,
+    inflation_rate: 1.0873
+  });
+
+  Years.insert({
+    year_text: '2011',
+    year_int: 2011,
+    inflation_rate: 1.0713
+  });
+
+  Years.insert({
+    year_text: '2012',
+    year_int: 2012,
+    inflation_rate: 1.0405
+  });
+
+  Years.insert({
+    year_text: '2013',
+    year_int: 2013,
+    inflation_rate: 1.027
+  });
+
+   Years.insert({
+    year_text: '2014',
+    year_int: 2014,
+    inflation_rate: 1.0076
+  });
+
 
 }
 
@@ -119,7 +155,7 @@ Meteor.methods({
   var counter
   var data = []
         
-  for (year=2001; year<2002; year++) {
+  for (year=2009; year<2015; year++) {
     var result = Meteor.http.get("http://www.the-numbers.com/market/" + year + "/top-grossing-movies")
     $ = cheerio.load(result.content);
       for (counter=2; counter<102; counter++) {
@@ -260,6 +296,11 @@ Meteor.methods({
         if(movie_title == "Hannah Montana/Miley Cyrus: Best of Both Worlds Concert Tour") {
           var super_clean_url = "Hannah-Montana-Miley-Cyrus-Best-of-Both-Worlds-Concert-Tour"
         }
+
+
+        if(movie_title == "Hannah Montana/Miley Cyrus: Best of Both Worlds Concert Tour") {
+          var super_clean_url = "Fast-and-Furious-(2009)"
+        }
         
         
         
@@ -288,8 +329,8 @@ Meteor.methods({
           }
         }
       }
-      if (Movies.find({release_year: 2001}).count() === 0) {
-      for(var i=0;i<800;i++){
+      if (Movies.find({release_year: 2009}).count() === 0) {
+      for(var i=0;i<600;i++){
 
       Movies.insert({
         movie_title: data[i].movie_title,
@@ -311,7 +352,7 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 2008}).fetch();
+    var movie = Movies.find({release_year: 2010}).fetch();
     for(var i=0;i<100;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url
