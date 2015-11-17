@@ -88,6 +88,26 @@ if (Years.find().count() === 0) {
   });
 
 
+  Years.insert({
+    year_text: '2006',
+    year_int: 2006,
+    inflation_rate: 1.1932
+  });
+
+  Years.insert({
+    year_text: '2007',
+    year_int: 2007,
+    inflation_rate: 1.1636
+  });
+
+  Years.insert({
+    year_text: '2008',
+    year_int: 2008,
+    inflation_rate: 1.1180
+  });
+
+
+
 }
 
 

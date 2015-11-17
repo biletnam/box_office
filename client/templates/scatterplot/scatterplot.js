@@ -1,6 +1,13 @@
 function buildScatter() {
-    $('#container-scatter').highcharts({
+    var scatter_session_data = Session.get('scatterPlotData')
+    console.log(scatter_session_data)
 
+    var scatter_data = []
+
+    // scatter_session_data.forEach(function)
+
+    $('#container-scatter').highcharts({  
+       
         chart: {
             type: 'scatter',
             plotBorderWidth: 1,
@@ -58,13 +65,15 @@ function buildScatter() {
             series: {
                 dataLabels: {
                     enabled: true,
-                    format: '{point.name}'
+                    format: '{series.name}'
                 }
             }
         },
 
         series: [{
+            name: "Comedy",
             data: [
+
                 { x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' },
                 { x: 86.5, y: 102.9, z: 14.7, name: 'DE', country: 'Germany' },
                 { x: 80.8, y: 91.5, z: 15.8, name: 'FI', country: 'Finland' },
@@ -88,7 +97,9 @@ function buildScatter() {
 
 
 Template.scatterplot.rendered = function() {  
-    this.autorun(function () {  
+    this.autorun(function () { 
+        var movies = Movies.find({release_year: 2002}).fetch()
+        Session.set('scatterPlotData', movies) 
         buildScatter()
     });
 

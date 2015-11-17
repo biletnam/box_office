@@ -3,7 +3,9 @@ function buildMonthlyAverageLine() {
     var seriesData = []
 
     average_line_cursor.forEach(function(movie) {
-        var inflation_year = Years.findOne({year_int: 1995})
+        var movie_release_year = movie.release_year
+        console.log(movie_release_year)
+        var inflation_year = Years.findOne({year_int: movie_release_year})
         var inflation_rate = inflation_year.inflation_rate
         var dataPoint = {
             release_year: movie.release_year,
