@@ -44,14 +44,14 @@ Highcharts.setOptions({
 
 // });
 
-// Meteor.call('getIndividualMovieData', function(error, result) {
-//     if (error) {
-//       console.log("error", error);
-//     };
+Meteor.call('getIndividualMovieData', function(error, result) {
+    if (error) {
+      console.log("error", error);
+    };
 
-//     console.log(result)
+    console.log(result)
     
-// });
+});
   
 
 

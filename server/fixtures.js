@@ -329,7 +329,7 @@ Meteor.methods({
           }
         }
       }
-      if (Movies.find({release_year: 2009}).count() === 0) {
+      if (Movies.find({release_year: 2010}).count() === 0) {
       for(var i=0;i<600;i++){
 
       Movies.insert({
@@ -352,7 +352,7 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 2010}).fetch();
+    var movie = Movies.find({release_year: 2011}).fetch();
     for(var i=0;i<100;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url

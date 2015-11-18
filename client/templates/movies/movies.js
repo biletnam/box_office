@@ -59,7 +59,7 @@ function buildPie() {
 }
 
 Template.movies.rendered = function() {  
-    Session.set('selectedYear', 1998)
+    Session.set('selectedYear', 1995)
     this.autorun(function () {  
         Session.get('selectedYear')
         var year = Session.get('selectedYear')
