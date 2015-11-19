@@ -1,13 +1,13 @@
 Template.keywordRow.helpers({
-	gross: function() {
-		var keyword = this.keyword
-		var gross_array = Movies.find({keyword_array: {$in: [keyword]}}).fetch()
-		var domestic_gross = _.pluck(gross_array, "domestic_box_office_total");
-		return _.reduce(domestic_gross, function(sum, price){
-      		return sum + parseFloat(price);
-    	}, 0);
+	// gross: function() {
+	// 	var keyword = this.keyword
+	// 	var gross_array = Movies.find({keyword_array: {$in: [keyword]}}).fetch()
+	// 	var domestic_gross = _.pluck(gross_array, "domestic_box_office_total");
+	// 	return _.reduce(domestic_gross, function(sum, price){
+ //      		return sum + parseFloat(price);
+ //    	}, 0);
 
-	}
+	// }
 
 })
 
