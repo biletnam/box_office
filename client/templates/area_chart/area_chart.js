@@ -3,6 +3,12 @@ function buildArea() {
 	var area_chart_context = Session.get('areaChartContext')
 	var area_chart_data = []
 
+    if (area_chart_context == "genre") {
+        title_context = "Genre"
+    } else {
+        title_context = "Rating"
+    };
+
 	area_chart_cursor.forEach(function(movie) {
         var movie_release_year = movie.release_year
         var inflation_year = Years.findOne({year_int: movie_release_year})
@@ -53,10 +59,9 @@ function buildArea() {
             type: 'area'
         },
         title: {
-            text: 'Historic and Estimated Worldwide Population Distribution by Region'
+            text: title_context + ' Distribution Over Time'
         },
         subtitle: {
-            text: 'Source: Wikipedia.org'
         },
         xAxis: {
             categories: ['1995', 
@@ -110,14 +115,21 @@ function buildArea() {
 }
 
 Template.areaChart.rendered = function() {  
-    var keywords = Keywords.find().fetch()
-    console.log(keywords)
+    Session.set('areaChartContext', 'rating')
     this.autorun(function () {
-    	context = "rating"
+    	context = "genre"
     	var movies = Movies.find().fetch()
     	Session.set('areaChartData', movies)
-    	Session.set('areaChartContext', context)
+    	Session.get('areaChartContext')
         buildArea()
     });
 
 }
+
+
+Template.areaChart.events({
+    "change #area_select": function(e) {
+        var context = $("#area_select option:selected").text();
+        Session.set('areaChartContext', context)
+    }
+})
