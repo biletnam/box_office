@@ -20,6 +20,7 @@ if (Keywords.find().count() === 0) {
 
 }
 
+
 if (Years.find().count() === 0) {
   Years.insert({
     year_text: '1995',
@@ -352,7 +353,7 @@ Meteor.methods({
 
 
 getIndividualMovieData: function () {
-    var movie = Movies.find({release_year: 2011}).fetch();
+    var movie = Movies.find({release_year: 2014}).fetch();
     for(var i=0;i<100;i++){
       var cheerio = Meteor.npmRequire('cheerio');
       var title = movie[i].title_url

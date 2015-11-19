@@ -7,6 +7,9 @@ function buildArea() {
         var movie_release_year = movie.release_year
         var inflation_year = Years.findOne({year_int: movie_release_year})
         var inflation_rate = inflation_year.inflation_rate
+   
+
+        
         var dataPoint = {
             release_year: movie.release_year,
             domestic_box_office_total: movie.domestic_box_office_total * inflation_rate,
@@ -18,6 +21,8 @@ function buildArea() {
         };
         area_chart_data.push(dataPoint);
     });
+    
+ 
 	
 	if (area_chart_context == "rating") {
     	var sqld_data = alasql('SELECT release_year, rating, SUM(domestic_box_office_total) AS box_office_total FROM ? GROUP BY release_year, rating ORDER BY release_year, rating', [area_chart_data]); 
@@ -26,16 +31,23 @@ function buildArea() {
     }
 
 
+
+
+
+
       var prepped_data =  _.chain(sqld_data)
         .groupBy(area_chart_context)
         .map(function(value, key) {
         return {
             name: key,
-            data: _.pluck(value, 'box_office_total')
+            data: _.pluck(value, 'box_office_total'),
+            year: _.pluck(value, 'release_year')
         }
         })
         .value();
+        
 
+        console.log(sqld_data)
     $('#container-area').highcharts({
         chart: {
             type: 'area'
@@ -98,7 +110,8 @@ function buildArea() {
 }
 
 Template.areaChart.rendered = function() {  
-
+    var keywords = Keywords.find().fetch()
+    console.log(keywords)
     this.autorun(function () {
     	context = "rating"
     	var movies = Movies.find().fetch()

@@ -5,3 +5,7 @@ Meteor.publish('movies', function() {
 Meteor.publish('years', function() {
   return Years.find();
 });
+
+Meteor.publish('keywords', function() {
+  return Keywords.find();
+});
