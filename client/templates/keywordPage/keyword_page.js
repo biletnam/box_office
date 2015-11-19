@@ -78,11 +78,11 @@ Template.keywordPage.rendered = function() {
    
 		var movie_release_year = movie.release_year
         var inflation_year = Years.findOne({year_int: movie_release_year})
-        var inflation_rate = inflation_year.inflation_rate
+        var inflation_rate = inflation_year.inflation_rate 
    
         
         var dataPoint = {
-            release_year: movie.release_year,
+            release_year: movie.release_year - 1,
             domestic_box_office_total: movie.domestic_box_office_total * inflation_rate,
             movie_title: movie.movie_title
 

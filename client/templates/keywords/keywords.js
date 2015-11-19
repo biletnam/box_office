@@ -48,7 +48,7 @@ Template.keywords.rendered = function() {
 
 Template.keywords.helpers({
 	keywords: function() {
-		return Keywords.find({}, {limit: 10})
+		return Keywords.find({}, {limit: 100})
 	}
 
 })
