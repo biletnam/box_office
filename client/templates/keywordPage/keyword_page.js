@@ -82,7 +82,7 @@ Template.keywordPage.rendered = function() {
    
         
         var dataPoint = {
-            release_year: movie.release_year - 1,
+            release_year: movie.release_year,
             domestic_box_office_total: movie.domestic_box_office_total * inflation_rate,
             movie_title: movie.movie_title
 
@@ -91,14 +91,15 @@ Template.keywordPage.rendered = function() {
         testData.push(dataPoint);
     });
     var years = _.pluck(testData, 'release_year');
-    var categories = _.uniq(years, true)
-    var sqld_data = alasql('SELECT MIN(domestic_box_office_total) as min_bo, MAX(domestic_box_office_total) as max_bo FROM ? GROUP BY release_year ORDER BY release_year', [testData]); 
+    console.log(years)
+    var categories = _.uniq(years)
+    var sqld_data = alasql('SELECT release_year, MIN(domestic_box_office_total) as min_bo, MAX(domestic_box_office_total) as max_bo FROM ? GROUP BY release_year ORDER BY release_year ASC', [testData]); 
     var final_years = _.sortBy(categories, function(num) {
         return num
     })
     console.log(final_years)
     var final_data = _.map(sqld_data, _.values)
-
+    console.log(final_data)
     buildMinMaxKeyword()
     console.log(categories)
     Session.set('minMaxData', final_data)
