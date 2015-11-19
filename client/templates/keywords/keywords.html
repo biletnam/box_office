@@ -1,5 +1,20 @@
 <template name="keywords">
 <div class="row">
- 	<h3>Keywords</h3>
+ 	   <table>
+        <thead>
+          <tr>
+              <th data-field="keyword">Keyword</th>
+              <th data-field="number_of_movies"># of Movies</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+        {{#each keywords}}
+   			{{>keywordRow}}
+         {{/each}}
+
+        </tbody>
+      </table>
  </div>        
 </template>
