@@ -1,6 +1,7 @@
 function buildMinMaxKeyword() {
         var min_max_data = Session.get('minMaxData')
         var min_max_categories = Session.get('minMaxCategories')
+        var keyword_title = Session.get('keywordTitle')
 
         console.log(min_max_data)
         $('#container-min-max').highcharts({
@@ -11,7 +12,7 @@ function buildMinMaxKeyword() {
         },
 
         title: {
-            text: 'Keyword Gross Variation by Year'
+            text: keyword_title + ' Movie Gross Variation by Year'
         },
 
         subtitle: {
@@ -24,17 +25,19 @@ function buildMinMaxKeyword() {
         yAxis: {
             title: {
                 text: 'Total Domestic Gross'
-            }
+            },
+            min: 0
         },
 
         tooltip: {
-   
+            valueDecimals: 2
         },
+     
 
         plotOptions: {
             columnrange: {
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                     formatter: function () {
                         return this.y;
                     }
@@ -47,7 +50,7 @@ function buildMinMaxKeyword() {
         },
 
         series: [{
-            name: 'Temperatures',
+            name: 'Range',
             data: min_max_data
         }]
 
@@ -100,6 +103,7 @@ Template.keywordPage.rendered = function() {
     console.log(categories)
     Session.set('minMaxData', final_data)
     Session.set('minMaxCategories', final_years)
+    Session.set('keywordTitle', keyword_title.keyword)
 
     });
     
