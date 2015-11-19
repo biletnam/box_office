@@ -48,7 +48,53 @@ Template.keywords.rendered = function() {
 
 Template.keywords.helpers({
 	keywords: function() {
-		return Keywords.find({}, {sort:{keyword_count: -1}}, {limit: 20})
+		return Keywords.find({}, {limit: 10})
 	}
 
 })
+
+Template.keywords.rendered = function() {  
+    // this.autorun(function () {  
+    //    var keyword_cursor = Keywords.find({}, {limit: 10}).fetch()
+    //    var array = []
+    //    keyword_cursor.forEach(function(keyword) {
+    //    var movies = Movies.find({keyword_array: {$in: [keyword.keyword]}}).fetch()
+    //    var title = _.pluck(movies, "movie_title");
+    //    var domestic_gross = _.pluck(movies, "domestic_box_office_total");
+    //    var release_year = _.pluck(movies, "release_year");
+
+    //    var dataPoint = {
+    //           keyword: keyword.keyword,
+    //           year_and_gross: {
+    //           domestic_gross: domestic_gross,
+    //           release_year: release_year
+    //           }
+    //    } 
+
+    //     array.push(dataPoint)
+    //    });
+    //    console.log(array)
+
+    //    });
+    
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

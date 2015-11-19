@@ -4,6 +4,7 @@ Meteor.subscribe('keywords');
 
 
 
+
 Highcharts.setOptions({
     lang: {
         thousandsSep: ','

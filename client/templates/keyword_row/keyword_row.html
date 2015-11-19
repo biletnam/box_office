@@ -1,7 +1,8 @@
 <template name="keywordRow">
 	<tr>
-            <td>{{keyword}}</td>
+ <td><a href="{{pathFor 'keywordPage'}}">{{keyword}}</a></td>
             <td>{{keyword_count}}</td>
-            <td>{{gross}}</td>
+            <td>{{total_domestic_gross}}</td>
+            <td>{{average_gross}}</td>
     </tr>
 </template>
