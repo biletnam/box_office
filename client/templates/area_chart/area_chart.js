@@ -53,7 +53,7 @@ function buildArea() {
         .value();
         
 
-        console.log(sqld_data)
+
     $('#container-area').highcharts({
         chart: {
             type: 'area'
