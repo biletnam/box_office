@@ -12,10 +12,16 @@ Template.keywords.rendered = function() {
             	keyword: keyword.keyword,
             	count: keywords
         	} 
-        	if (keyword.keyword != "") {
+        	if (keyword.keyword != "" ) {
         		keyword_array.push(dataPoint);
+        		Keywords.update(keyword._id, 
+        			{$set:{keyword_count: keywords} 
+        		})
         	}
         })
 
-        console.log(_.sortBy(keyword_array, 'count').reverse())
+        var yes = _.sortBy(keyword_array, 'count').reverse()
+        console.log(yes)
 }
+
+

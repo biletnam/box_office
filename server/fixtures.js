@@ -21,6 +21,8 @@ if (Keywords.find().count() === 0) {
 }
 
 
+
+
 if (Years.find().count() === 0) {
   Years.insert({
     year_text: '1995',
