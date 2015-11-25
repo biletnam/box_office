@@ -1,11 +1,17 @@
 <template name="keywords">
 <div class="row">
+    <div class="col s12">
+    <h4>Keywords</h4>
+    
+  </div>
+</div>
+  <div class="row">
  	   <table>
         <thead>
           <tr>
               <th data-field="keyword">Keyword</th>
-              <th data-field="number_of_movies"># of Movies</th>
-              <th data-field="gross">Gross</th>
+              <th data-field="number_of_movies"><a href="{{pathFor 'mostMovies'}}"># of Movies</a></th>
+              <th data-field="gross"><a href="{{pathFor 'topGrossing'}}">Gross</a></th>
 
           </tr>
         </thead>
@@ -17,5 +23,5 @@
 
         </tbody>
       </table>
- </div>        
+      </div>     
 </template>
