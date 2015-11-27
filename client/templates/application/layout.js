@@ -3,5 +3,6 @@ Template.layout.rendered = function () {
     	$('ul.tabs').tabs();
 
 	})
+	 
 
 };

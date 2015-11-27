@@ -1,17 +1,24 @@
 <template name="keywords">
 <div class="row">
-    <div class="col s12">
+    <div class="col s6">
     <h4>Keywords</h4>
     
   </div>
-</div>
-  <div class="row">
+    <div class="input-field col s6">
+    <select class="browser-default dropdown_text_color" id="keyword_sort_dropdown" name="keyword_sort_dropdown">
+      <option value="" disabled selected>{{sort}}</option>
+      <option value="alphabeticalKeywords">Alphabetical</option>
+      <option value='mostMovies'>Number of Movies (Most First)</option>
+      <option value='topGrossing'>Box Office Gross (Highest First)</option>
+    </select>
+  </div>
+  <div class="col s12">
  	   <table>
         <thead>
           <tr>
               <th data-field="keyword">Keyword</th>
-              <th data-field="number_of_movies"><a href="{{pathFor 'mostMovies'}}"># of Movies</a></th>
-              <th data-field="gross"><a href="{{pathFor 'topGrossing'}}">Gross</a></th>
+              <th data-field="number_of_movies"># of Movies</th>
+              <th data-field="gross">Combined Box Office Gross</th>
 
           </tr>
         </thead>
@@ -23,5 +30,6 @@
 
         </tbody>
       </table>
+      </div>
       </div>     
 </template>

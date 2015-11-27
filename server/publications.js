@@ -6,12 +6,6 @@ Meteor.publish('years', function() {
   return Years.find();
 });
 
-// Meteor.publish('keywords', function() {
-//   return Keywords.find({});
-
-
-// });
-
 
 Meteor.publish('keywords', function(options) {
 check(options, {
