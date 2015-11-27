@@ -3,7 +3,6 @@ function buildMinMaxKeyword() {
         var min_max_categories = Session.get('minMaxCategories')
         var keyword_title = Session.get('keywordTitle')
 
-        console.log(min_max_data)
         $('#container-min-max').highcharts({
 
         chart: {
@@ -60,7 +59,9 @@ function buildMinMaxKeyword() {
 
 Template.keywordPage.helpers({
     movies: function() {
-        var movies_data = Movies.find({keyword_array: {$in: [this.keyword]}})
+        var alpha = {sort: {movie_title: 1}}
+
+        var movies_data = Movies.find({keyword_array: {$in: [this.keyword]}}, alpha)
         return movies_data
 	}
 })

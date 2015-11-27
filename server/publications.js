@@ -6,6 +6,10 @@ Meteor.publish('years', function() {
   return Years.find();
 });
 
+Meteor.publish('actors', function() {
+  return Actors.find();
+});
+
 
 Meteor.publish('keywords', function(options) {
 check(options, {
@@ -17,4 +21,15 @@ check(options, {
 Meteor.publish('singleKeyword', function(id) {
   check(id, String)
   return Keywords.find(id);
+});
+
+
+Meteor.publish('singleMovie', function(id) {
+  check(id, String)
+  return Movies.find(id);
+});
+
+Meteor.publish('singleActor', function(id) {
+  check(id, String)
+  return Actors.find({movies: {$in: [id]}});
 });

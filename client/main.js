@@ -16,6 +16,12 @@ Highcharts.setOptions({
     }
 });
 
+  // Meteor.call('getActorData', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
+
   // Meteor.call('getMovieData', function(error, result) {
   //   if (error) {
   //     console.log("error", error);

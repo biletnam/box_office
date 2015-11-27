@@ -1,6 +1,6 @@
 <template name="movieTable">
 	      <tr>
-            <td>{{movie_title}}</td>
+            <td><a href="{{pathFor 'moviePage'}}">{{movie_title}}</a></td>
  			<td>{{release_date}}</td>
             <td>{{rating}}</td>
             <td>{{genre}}</td>

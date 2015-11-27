@@ -21,6 +21,25 @@ if (Keywords.find().count() === 0) {
 }
 
 
+if (Actors.find().count() === 0) {
+  var all_movies = Movies.find().fetch();
+  
+  var seriesData = [];
+    
+  var actors = _.chain(all_movies)
+    .pluck('cast_array')
+    .flatten()
+    .uniq()
+    .value();
+  
+  _.map(actors, function(actor){ 
+
+    Actors.insert({
+      actor: actor
+   })
+  })
+}
+
 
 
 if (Years.find().count() === 0) {
@@ -458,9 +477,60 @@ getIndividualMovieData: function () {
 
     }
 
+},
+getActorData: function () {
+
+        var actors = Actors.find().fetch()
+   
+        var actor_data = []
+
+        actors.forEach(function(actor){
+          var actors_movies_count = Movies.find({cast_array: {$in: [actor.actor]}}).count()
+          var actors_movies = Movies.find({cast_array: {$in: [actor.actor]}}).fetch()
+          var actors_total_domestic_gross = _.pluck(actors_movies, "domestic_box_office_total");
+          var movies = _.pluck(actors_movies, "_id");
+          var total_domestic_gross = _.reduce(actors_total_domestic_gross, function(sum, price){
+           return sum + parseFloat(price);
+          }, 0)
+        
+          Actors.update(actor._id, 
+            {$set: {
+              movie_count: actors_movies_count,
+              actors_total_domestic_gross: actors_total_domestic_gross,
+              movies: movies
+              }
+            })
+
+          
+
+        })
+       //  keywords.forEach(function(keyword) {
+       //   var keywords = Movies.find({keyword_array: {$in: [keyword.keyword]}}).count()
+       //   var movies = Movies.find({keyword_array: {$in: [keyword.keyword]}}).fetch()
+       //   var domestic_gross = _.pluck(movies, "domestic_box_office_total");
+       //   var total_domestic_gross = _.reduce(domestic_gross, function(sum, price){
+       //     return sum + parseFloat(price);
+       //   }, 0)
+       //   var dataPoint = {
+       //       keyword: keyword.keyword,
+       //       count: keywords
+       //   } 
+       //   if (keyword.keyword != "" ) {
+       //     keyword_array.push(dataPoint);
+       //     Keywords.update(keyword._id, 
+       //       {$set:{
+       //         keyword_count: keywords,
+       //         total_domestic_gross: total_domestic_gross
+       //         } 
+       //     })
+       //   }
+       //  })
+
+       //  var yes = _.sortBy(keyword_array, 'count').reverse()
+       //  console.log(yes)
+
+
 }
-
-
 });
 
 

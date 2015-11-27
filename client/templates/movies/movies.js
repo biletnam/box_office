@@ -74,7 +74,7 @@ Template.movies.rendered = function() {
 Template.movies.events({
     "change #year_select": function(e) {
         var year = $("#year_select option:selected").text();
-        console.log(year)
+     
         Session.set('selectedYear', year)
     }
 })
