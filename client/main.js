@@ -22,6 +22,18 @@ Highcharts.setOptions({
   //   };
   // });
 
+  //  Meteor.call('getActorMovieIds', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
+
+  // Meteor.call('getMovieActorIds', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
+
   // Meteor.call('getKeywordMovieIds', function(error, result) {
   //   if (error) {
   //     console.log("error", error);

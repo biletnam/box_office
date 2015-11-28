@@ -541,7 +541,46 @@ getMovieKeywordIds: function () {
 
   })
 
-}
+},
+
+getMovieActorIds: function () {
+  var actors = Actors.find().fetch()
+
+  actors.forEach(function(actor){
+    var movies = Movies.find({cast_array: {$in: [actor.actor]}}).fetch()
+    var movie_ids = _.pluck(movies, "_id");
+
+    Actors.update(actor._id, 
+      {$set: {
+        movie_ids: movie_ids
+
+        }
+      })
+
+
+  })
+
+},
+
+getActorMovieIds: function () {
+  var movies = Movies.find().fetch()
+
+  movies.forEach(function(movie){
+    var actors = Actors.find({movie_ids: {$in: [movie._id]}}).fetch()
+    var actor_ids = _.pluck(actors, "_id");
+
+    Movies.update(movie._id, 
+      {$set: {
+        actor_ids: actor_ids
+
+        }
+      })
+
+
+  })
+
+},
+
 
 
 
