@@ -1,6 +1,6 @@
-Meteor.subscribe('movies');
-Meteor.subscribe('years');
-Meteor.subscribe('keywords');
+// Meteor.subscribe('movies');
+// Meteor.subscribe('years');
+// Meteor.subscribe('keywords');
 
 
 
@@ -21,6 +21,19 @@ Highcharts.setOptions({
   //     console.log("error", error);
   //   };
   // });
+
+  // Meteor.call('getKeywordMovieIds', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
+
+  // Meteor.call('getMovieKeywordIds', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
+
 
   // Meteor.call('getMovieData', function(error, result) {
   //   if (error) {

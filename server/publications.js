@@ -33,3 +33,8 @@ Meteor.publish('singleActor', function(id) {
   check(id, String)
   return Actors.find({movies: {$in: [id]}});
 });
+
+Meteor.publish('moviesWithKeyword', function(id) {
+  check(id, String)
+  return Movies.find({keyword_ids: {$in: [id]}}, {sort: {movie_title: 1}});
+});

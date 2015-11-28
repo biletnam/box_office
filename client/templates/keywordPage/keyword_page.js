@@ -59,9 +59,8 @@ function buildMinMaxKeyword() {
 
 Template.keywordPage.helpers({
     movies: function() {
-        var alpha = {sort: {movie_title: 1}}
 
-        var movies_data = Movies.find({keyword_array: {$in: [this.keyword]}}, alpha)
+        var movies_data = Movies.find({keyword_ids: {$in: [this._id]}})
         return movies_data
 	}
 })

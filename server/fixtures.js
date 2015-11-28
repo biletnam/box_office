@@ -481,8 +481,6 @@ getIndividualMovieData: function () {
 getActorData: function () {
 
         var actors = Actors.find().fetch()
-   
-        var actor_data = []
 
         actors.forEach(function(actor){
           var actors_movies_count = Movies.find({cast_array: {$in: [actor.actor]}}).count()
@@ -504,33 +502,49 @@ getActorData: function () {
           
 
         })
-       //  keywords.forEach(function(keyword) {
-       //   var keywords = Movies.find({keyword_array: {$in: [keyword.keyword]}}).count()
-       //   var movies = Movies.find({keyword_array: {$in: [keyword.keyword]}}).fetch()
-       //   var domestic_gross = _.pluck(movies, "domestic_box_office_total");
-       //   var total_domestic_gross = _.reduce(domestic_gross, function(sum, price){
-       //     return sum + parseFloat(price);
-       //   }, 0)
-       //   var dataPoint = {
-       //       keyword: keyword.keyword,
-       //       count: keywords
-       //   } 
-       //   if (keyword.keyword != "" ) {
-       //     keyword_array.push(dataPoint);
-       //     Keywords.update(keyword._id, 
-       //       {$set:{
-       //         keyword_count: keywords,
-       //         total_domestic_gross: total_domestic_gross
-       //         } 
-       //     })
-       //   }
-       //  })
 
-       //  var yes = _.sortBy(keyword_array, 'count').reverse()
-       //  console.log(yes)
+},
 
+getKeywordMovieIds: function () {
+  var keywords = Keywords.find().fetch()
+
+  keywords.forEach(function(keyword){
+    var movies = Movies.find({keyword_array: {$in: [keyword.keyword]}}).fetch()
+    var movie_ids = _.pluck(movies, "_id");
+
+    Keywords.update(keyword._id, 
+      {$set: {
+        movie_ids: movie_ids
+
+        }
+      })
+
+
+  })
+
+},
+
+getMovieKeywordIds: function () {
+  var movies = Movies.find().fetch()
+
+  movies.forEach(function(movie){
+    var keywords = Keywords.find({movie_ids: {$in: [movie._id]}}).fetch()
+    var keyword_ids = _.pluck(keywords, "_id");
+
+    Movies.update(movie._id, 
+      {$set: {
+        keyword_ids: keyword_ids
+
+        }
+      })
+
+
+  })
 
 }
+
+
+
 });
 
 
