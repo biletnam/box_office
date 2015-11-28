@@ -1,7 +1,42 @@
+
+
 <template name="moviePage">
-	<h1>{{movie_title}}</h1>
-	<h2>{{genre}}</h2>
-	{{#each actors}}
-	<h3>{{actor}}</h3>
-	{{/each}}
-</template>
+ <div class="section">
+ 	<h3>{{movie_title}}</h3>
+ 	<h5>{{release_year}}</h5>
+ </div>
+ <div class="row">
+ 	  <div class="section col s12 m12 l6">
+ 	    	 <div class="divider"></div>
+    <h5>Box Office Performance</h5>
+    <p><b>Production budget:</b> {{production_budget}}</p>
+    <p><b>Domestic box office gross:</b> {{domestic_box_office_total}}</p>
+    <p><b>Total box office gross:</b> {{worldwide_box_office_total}}</p>
+  	 <div class="divider"></div>
+    <h5>Details</h5>
+    <p><b>Release date:</b> {{release_date}}</p>
+    <p><b>Rating:</b> {{rating}}</p>
+    <p><b>Running time:</b> {{running_time}} minutes</p>
+    <p><b>Genre:</b> {{genre}}</p>
+    <p><b>Distributor:</b> {{distributor}}</p>
+    <p><b>Production Companies:</b>{{production_company_array}}</p>
+    <p><b>Franchise:</b> {{franchise}}</p>
+    <p><b>Source:</b> {{source}}</p>
+    <p><b>Production Method:</b> {{production_method}}</p>
+     <p><b>Creative Type:</b> {{creative_type}}</p>
+
+  </div>
+  <div class="section col s12 m12 l6">
+     <div class="divider"></div>
+     <h5>Cast</h5>
+     {{#each actors}}
+     <p><a href="">{{actor}}</a></p>
+     {{/each}}
+               <div class="divider"></div>
+     <h5>Crew</h5>
+     {{#each crew_array}}
+     <p><b>{{position}}</b>: {{crew_person}}</p>
+     {{/each}}
+  </div>
+  </div>
+ </template>
