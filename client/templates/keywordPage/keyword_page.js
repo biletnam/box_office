@@ -59,15 +59,42 @@ function buildMinMaxKeyword() {
 
 Template.keywordPage.helpers({
     movies: function() {
-
-        var movies_data = Movies.find({keyword_ids: {$in: [this._id]}})
+        var sort_session = Session.get('keyword_page_dropdown')
+        if (sort_session == 'Alphabetical (A-Z)') {
+           var sort = {sort: {movie_title: 1}}
+        } else if (sort_session == 'Genre (A-Z)') {
+            var sort = {sort: {genre: 1}}
+        } else if (sort_session == 'Rating (A-Z)') {
+            var sort = {sort: {rating: 1}}
+        } else {
+            var sort = {sort: {domestic_box_office_total: -1}}
+        }
+        var movies_data = Movies.find({keyword_ids: {$in: [this._id]}}, sort)
         return movies_data
-	}
+	},
+    sort: function() {
+         var sort = Session.get('keyword_page_dropdown')
+         return sort
+    }
 })
 
 Template.keywordPage.rendered = function() {  
     this.autorun(function () {  
-    	var controller = Iron.controller();
+        var route = Router.current().route.getName()
+    	console.log(route)
+        
+        if (route == 'alphaKeywordMovie') {
+            var state = 'Alphabetical (A-Z)'
+        } else if (route == 'genreKeywordMovie') {
+            var state = 'Genre (A-Z)'
+        } else if (route == 'ratingKeywordMovie') {
+            var state = 'Rating (A-Z)'
+        } else {
+            var state = 'Box Office Gross (Highest First)'
+        }
+            Session.set('keyword_page_dropdown', state)
+
+        var controller = Iron.controller();
     	var keyword_state = controller.state.get('keywordId');
 		var keyword_title = Keywords.findOne(keyword_state)
 		var movies_data = Movies.find({keyword_array: {$in: [keyword_title.keyword]}}).fetch()
@@ -110,3 +137,19 @@ Template.keywordPage.rendered = function() {
     
  
 }
+
+Template.keywordPage.events({
+  'change #keyword_sort_movie_dropdown': function (e) {
+    var route = $(event.target).val();
+    var drop_down_context = $("#keyword_sort_movie_dropdown option:selected").text();
+    Router.go(route, {_id: this._id})
+
+  }
+});
+
+
+
+
+
+
+
