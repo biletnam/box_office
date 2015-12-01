@@ -1,7 +1,30 @@
 <template name="actorPage">
-	<h1>
-		{{#each movies}}
-		{{movie_title}}
-		{{/each}}
-	</h1>
+<div class="section">
+ 	<h3>{{actor}}</h3>
+ <div class="divider"></div>
+ </div>
+  <div class="row">
+ 	  <div class="section col s12 m12 l12">
+
+    <h5>Movie Stats</h5>
+    	     <table>
+        <thead>
+          <tr>
+              <th data-field="movie_title">Release Year</th>
+              <th data-field="movie_production_budget">Title</th>
+              <th data-field="movie_production_budget">Production Budget</th>
+               <th data-field="movie_domestic_gross">Total Domestic Gross</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {{#each movies}}
+        	{{>actorMovieTable}}
+        {{/each}}
+        </tbody>
+      </table>
+
+
+  </div>
+</div>
 </template>
