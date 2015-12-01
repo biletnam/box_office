@@ -7,6 +7,7 @@ Template.actorGraph.helpers({
 });
 
 function buildActorGraph()  {
+	console.log(Years.find().count())
 	var movies = Session.get('actor_graph_session')
 	var movie_titles = []
 	var production_budgets = []
@@ -17,12 +18,19 @@ function buildActorGraph()  {
   
    
 		var movie_title = movie.movie_title
-		var production_budget = movie.production_budget
-		var total_domestic_gross = movie.domestic_box_office_total
-   
+		var movie_release_year = movie.release_year
+		var inflation_year = Years.findOne({year_int: movie_release_year})
+		
+		var production_budget = movie.production_budget * inflation_year.inflation_rate
+		var total_domestic_gross = movie.domestic_box_office_total * inflation_year.inflation_rate
+ 
+
+ 
+	
 		movie_titles.push(movie_title)
 		production_budgets.push(production_budget)
 		total_domestic_grosses.push(total_domestic_gross)
+
 
      });
 
