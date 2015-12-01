@@ -1,0 +1,39 @@
+<template name="fullListOfMovies">
+
+<div class="row">
+    <div class="col s6">
+    <h4>Movies</h4>
+    
+  </div>
+<!--     <div class="input-field col s6">
+    <select class="browser-default dropdown_text_color" id="keyword_sort_dropdown" name="keyword_sort_dropdown">
+      <option value="" disabled selected>{{sort}}</option>
+      <option value="alphabeticalKeywords">Alphabetical</option>
+      <option value='mostMovies'>Number of Movies (Most First)</option>
+      <option value='topGrossing'>Box Office Gross (Highest First)</option>
+    </select>
+  </div> -->
+  <div class="col s12">
+ 	   <table>
+        <thead>
+          <tr>
+              <th data-field="title">Title</th>
+              <th data-field="release_date">Release Date</th>
+              <th data-field="rating">Rating</th>
+              <th data-field="genre">Genre</th>
+              <th data-field="total_box_office">Domestic Box Office</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+        {{#each movies}}
+   			{{>movieTable}}
+         {{/each}}
+
+        </tbody>
+      </table>
+      </div>
+      </div>     
+
+</template>

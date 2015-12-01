@@ -1,28 +1,23 @@
 <template name="index">
 <div class="row">
+<div class="col s12">
 <div class="col s6">
-<div class="divider"></div>
-  <div class="section">
-    <h5>Graphs</h5>
-    <ul>
-    	<a href="{{pathFor 'movies'}}">Pie Chart</a><br>
-    	<a href="{{pathFor 'monthlyAverageLine'}}">Line Graph</a><br>
-    	<a href="{{pathFor 'scatterplot'}}">Scatterplot</a><br>
-    	<a href="{{pathFor 'areaChart'}}">Area Chart</a><br>
-      <a href="{{pathFor 'topGrossing'}}">Keywords</a>
-    </ul>
-    <div class="divider"></div>
+ <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="http://cdn2-b.examiner.com/sites/default/files/styles/image_content_width/hash/d3/54/d3547538aa6faa7433246ed8a55c9e67.jpg?itok=2fV9j2_R">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Movies<i class="material-icons right">more_vert</i></span>
+      <p><a href="{{pathFor 'topGrossingMovies'}}">Top Grossing Movies</a></p>
+      <p><a href="{{pathFor 'fullListOfMovies'}}">Full List of Movies</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+    </div>
   </div>
- </div>
-<div class="col s6">
-  <div class="divider"></div>
-  <div class="section">
-    <h5>Tables</h5>
-    <ul>
-      <a href="{{pathFor 'keywords'}}">Keywords</a>
-    </ul>
-  </div>
-  <div class="divider"></div>
- </div>   
- </div>        
+            
+ </div> 
+ </div>  
+  </div>          
 </template>

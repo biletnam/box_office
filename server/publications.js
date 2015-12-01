@@ -48,3 +48,8 @@ Meteor.publish('moviesWithKeyword', function(id, sort) {
   // check(id, String)
   return Movies.find({keyword_ids: {$in: [id]}}, sort);
 });
+
+
+Meteor.publish('topGrossingMovies', function() {
+  return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 100});
+});
