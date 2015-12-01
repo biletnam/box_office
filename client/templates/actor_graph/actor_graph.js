@@ -7,12 +7,11 @@ Template.actorGraph.helpers({
 });
 
 function buildActorGraph()  {
-	console.log(Years.find().count())
 	var movies = Session.get('actor_graph_session')
 	var movie_titles = []
 	var production_budgets = []
 	var total_domestic_grosses = []
-	console.log(movies)
+
 
 	movies.forEach(function(movie) {
   

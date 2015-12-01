@@ -1,7 +1,6 @@
 <template name="actorMovieTable">
      <tr>
-            <td>{{release_year}}</td>
-            <a href="{{pathFor 'moviePage'}}"><td>{{movie_title}}</td></a>
+            <td><a href="{{pathFor 'moviePage'}}">{{movie_title}}</a> ({{release_year}})</td>
      </tr>
 
 </template>
