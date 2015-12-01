@@ -4,16 +4,17 @@
  <div class="divider"></div>
  </div>
   <div class="row">
- 	  <div class="section col s12 m12 l12">
+  	  <div class="col s12">
+  	{{>actorGraph}}
+  </div>
+ 	  <div class="section col s12">
 
-    <h5>Movie Stats</h5>
+    <h5>Movie List</h5>
     	     <table>
         <thead>
           <tr>
               <th data-field="movie_title">Release Year</th>
               <th data-field="movie_production_budget">Title</th>
-              <th data-field="movie_production_budget">Production Budget</th>
-               <th data-field="movie_domestic_gross">Total Domestic Gross</th>
           </tr>
         </thead>
 
@@ -26,5 +27,6 @@
 
 
   </div>
+
 </div>
 </template>
