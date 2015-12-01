@@ -8,43 +8,44 @@ Template.actorGraph.helpers({
 
 function buildActorGraph()  {
 	var movies = Session.get('actor_graph_session')
-	var actor_graph_data = []
+	var movie_titles = []
+	var production_budgets = []
+	var total_domestic_grosses = []
 	console.log(movies)
 
 	movies.forEach(function(movie) {
   
    
 		var movie_title = movie.movie_title
+		var production_budget = movie.production_budget
+		var total_domestic_gross = movie.domestic_box_office_total
    
-		actor_graph_data.push(movie_title)
+		movie_titles.push(movie_title)
+		production_budgets.push(production_budget)
+		total_domestic_grosses.push(total_domestic_gross)
 
      });
 
-     console.log(actor_graph_data)
     $('#container_actor_graph').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Efficiency Optimization by Branch'
+            text: 'Movie Budget vs Total Domestic Gross'
         },
         xAxis: {
-            categories: [
-                'Seattle HQ',
-                'San Francisco',
-                'Tokyo'
-            ]
+            categories: movie_titles
         },
         yAxis: [{
             min: 0,
             title: {
-                text: 'Employees'
+                text: ''
             }
         }, {
             title: {
-                text: 'Profit (millions)'
+                text: ''
             },
-            opposite: true
+            opposite: false
         }],
         legend: {
             shadow: false
@@ -62,7 +63,7 @@ function buildActorGraph()  {
         series: [{
             name: 'Production Budget',
             color: 'rgba(248,161,63,1)',
-            data: [183.6, 178.8, 198.5],
+            data: production_budgets,
             tooltip: {
                 valuePrefix: '$',
                 valueSuffix: ' M'
@@ -73,7 +74,7 @@ function buildActorGraph()  {
         }, {
             name: 'Total Domestic Gross',
             color: 'rgba(186,60,61,.9)',
-            data: [203.6, 198.8, 208.5],
+            data: total_domestic_grosses,
             tooltip: {
                 valuePrefix: '$',
                 valueSuffix: ' M'
