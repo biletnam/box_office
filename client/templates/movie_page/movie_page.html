@@ -6,7 +6,7 @@
  	<h5>{{release_year}}</h5>
  </div>
  <div class="row">
- 	  <div class="section col s12 m12 l6">
+ 	  <div class="section col s12 m12 l4">
  	    	 <div class="divider"></div>
     <h5>Box Office Performance</h5>
     <p><b>Production budget:</b> {{production_budget}}</p>
@@ -19,20 +19,22 @@
     <p><b>Running time:</b> {{running_time}} minutes</p>
     <p><b>Genre:</b> {{genre}}</p>
     <p><b>Distributor:</b> {{distributor}}</p>
-    <p><b>Production Companies:</b>{{production_company_array}}</p>
+    <p><b>Production Companies:</b> {{production_company_array}}</p>
     <p><b>Franchise:</b> {{franchise}}</p>
     <p><b>Source:</b> {{source}}</p>
     <p><b>Production Method:</b> {{production_method}}</p>
      <p><b>Creative Type:</b> {{creative_type}}</p>
 
   </div>
-  <div class="section col s12 m12 l6">
+  <div class="section col s12 m12 l4">
      <div class="divider"></div>
      <h5>Cast</h5>
      {{#each actors}}
      <p><a href="{{pathFor 'actorPage'}}">{{actor}}</a></p>
      {{/each}}
-               <div class="divider"></div>
+  </div>
+    <div class="section col s12 m12 l4">
+     <div class="divider"></div>
      <h5>Crew</h5>
      {{#each crew_array}}
      <p><b>{{position}}</b>: {{crew_person}}</p>

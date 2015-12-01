@@ -4,5 +4,4 @@ Template.layout.rendered = function () {
 
 	})
 	 
-
 };

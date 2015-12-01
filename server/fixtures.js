@@ -549,7 +549,7 @@ getMovieActorIds: function () {
   actors.forEach(function(actor){
     var movies = Movies.find({cast_array: {$in: [actor.actor]}}).fetch()
     var movie_ids = _.pluck(movies, "_id");
-
+    console.log(movie_ids)
     Actors.update(actor._id, 
       {$set: {
         movie_ids: movie_ids
@@ -568,7 +568,7 @@ getActorMovieIds: function () {
   movies.forEach(function(movie){
     var actors = Actors.find({movie_ids: {$in: [movie._id]}}).fetch()
     var actor_ids = _.pluck(actors, "_id");
-
+    console.log(actor_ids)
     Movies.update(movie._id, 
       {$set: {
         actor_ids: actor_ids
