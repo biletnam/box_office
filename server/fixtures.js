@@ -13,7 +13,7 @@ if (Keywords.find().count() === 0) {
 
     Keywords.insert({
       keyword: keyword,
-      
+
    })
   })
   
@@ -600,6 +600,25 @@ getActorMovieIds: function () {
   })
 
 },
+
+addFranchiseIdToMovie: function () {
+  var movies = Movies.find().fetch()
+
+  movies.forEach(function(movie){
+    var frachise = Franchises.findOne({franchise_title: movie.franchise})
+    var franchise_id = frachise._id
+    console.log(franchise_id)
+    Movies.update(movie._id, 
+      {$set: {
+        franchise_id: franchise_id
+
+        }
+      })
+
+
+  })
+
+}
 
 });
 

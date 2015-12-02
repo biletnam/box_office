@@ -1,5 +1,29 @@
 <template name='fullListOfFranchises'>
-{{#each franchises}}
-	<li>{{franchise_title}}</li>
-{{/each}}
+<div class="row">
+    <div class="col s6">
+    <h4>Franchises</h4>
+    
+  </div>
+  <div class="col s12">
+ 	   <table>
+        <thead>
+          <tr>
+              <th data-field="Franchise">Franchise</th>
+              <th data-field="release_date">Release Date</th>
+              <th data-field="rating">Rating</th>
+              <th data-field="genre">Genre</th>
+              <th data-field="total_box_office">Domestic Box Office</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+        {{#each franchises}}
+   			{{>franchiseRow}}
+         {{/each}}
+
+        </tbody>
+      </table>
+      </div>
+      </div>
 </template>

@@ -1,7 +1,7 @@
 // Meteor.subscribe('movies');
 // Meteor.subscribe('years');
 // Meteor.subscribe('keywords');
-Meteor.subscribe('franchises');
+// Meteor.subscribe('franchises');
 
 
 
@@ -22,11 +22,14 @@ Highcharts.setOptions({
 
 
 
-  Meteor.call('fixFranchiseField', function(error, result) {
-    if (error) {
-      console.log("error", error);
-    };
-  });
+  // Meteor.call('addFranchiseIdToMovie', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
+
+
+
   // Meteor.call('getActorData', function(error, result) {
   //   if (error) {
   //     console.log("error", error);
