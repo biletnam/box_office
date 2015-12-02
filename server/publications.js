@@ -10,6 +10,10 @@ Meteor.publish('actors', function() {
   return Actors.find();
 });
 
+Meteor.publish('franchises', function() {
+  return Franchises.find();
+});
+
 
 Meteor.publish('keywords', function(options) {
 check(options, {

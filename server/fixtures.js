@@ -12,7 +12,8 @@ if (Keywords.find().count() === 0) {
   _.map(keywords, function(keyword){ 
 
     Keywords.insert({
-      keyword: keyword
+      keyword: keyword,
+      
    })
   })
   
@@ -40,6 +41,25 @@ if (Actors.find().count() === 0) {
   })
 }
 
+if (Franchises.find().count() === 0) {
+  
+  var all_movies = Movies.find().fetch();
+    
+  var franchises = _.chain(all_movies)
+    .pluck('franchise')
+    .flatten()
+    .uniq()
+    .value();
+  
+  _.map(franchises, function(franchise){ 
+    Franchises.insert({
+      franchise_title: franchise
+   })
+  })
+  
+
+
+}
 
 
 if (Years.find().count() === 0) {
@@ -581,11 +601,7 @@ getActorMovieIds: function () {
 
 },
 
-
-
-
 });
-
 
         
 
