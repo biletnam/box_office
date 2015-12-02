@@ -57,3 +57,17 @@ Meteor.publish('moviesWithKeyword', function(id, sort) {
 Meteor.publish('topGrossingMovies', function() {
   return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 100});
 });
+
+Meteor.publish('franchiseMovies', function(id) {
+  check(id, String)
+  return Movies.find({franchise_id: id});
+});
+
+
+
+
+
+
+
+
+
