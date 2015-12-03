@@ -20,7 +20,11 @@ Highcharts.setOptions({
 
 
 
-
+  // Meteor.call('franchiseMovieCount', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
 
   // Meteor.call('addFranchiseIdToMovie', function(error, result) {
   //   if (error) {

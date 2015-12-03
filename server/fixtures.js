@@ -618,6 +618,23 @@ addFranchiseIdToMovie: function () {
 
   })
 
+}, 
+
+franchiseMovieCount: function () {
+    var franchises = Franchises.find().fetch()
+
+    franchises.forEach(function(franchise) {
+      var movies_count = Movies.find({franchise: franchise.franchise_title}).count()
+
+      if (franchise.franchise != "") {
+        Franchises.update(franchise._id,
+          {$set:{
+            franchise_count: movies_count
+          }
+        })
+      }
+    })
+
 }
 
 });

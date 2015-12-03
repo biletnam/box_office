@@ -1,14 +1,14 @@
 
-function buildFranchisePageGraph()  {
+function buildFranchisePageGraph(movieData)  {
 
-	var movies = Session.get('franchiseGraphSession')
+	// var movies = Session.get('franchiseGraphSession')
 	var movie_titles = []
 	var production_budgets = []
 	var total_domestic_grosses = []
 
-	movies.forEach(function(movie) {
+	movieData.forEach(function(movie) {
   
-   
+
 		var movie_title = movie.movie_title
 		var movie_release_year = movie.release_year
 		var inflation_year = Years.findOne({year_int: movie_release_year})
@@ -83,9 +83,10 @@ function buildFranchisePageGraph()  {
 
 Template.franchisePageGraph.rendered = function() {  
     this.autorun(function () {  
-    	var franchiseGraphSession = Movies.find({}, {sort: {release_year: 1}}).fetch()
-    	Session.set("franchiseGraphSession", franchiseGraphSession)
-    	buildFranchisePageGraph()
+    	var movieData = Movies.find({}, {sort: {release_year: 1}}).fetch()
+    	// Session.set("franchiseGraphSession", franchiseGraphSession)
+        // poop = Movies.find().count()
+    	buildFranchisePageGraph(movieData)
 
     })
     
