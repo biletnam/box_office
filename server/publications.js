@@ -11,7 +11,7 @@ Meteor.publish('actors', function() {
 });
 
 Meteor.publish('franchises', function() {
-  return Franchises.find();
+  return Franchises.find({franchise_count: {$gt: 2}});
 });
 
 
@@ -60,7 +60,7 @@ Meteor.publish('topGrossingMovies', function() {
 
 Meteor.publish('franchiseMovies', function(id) {
   check(id, String)
-  return Movies.find({franchise_id: id});
+  return Movies.find({franchise_id: id}, {sort: {release_year: 1}});
 });
 
 

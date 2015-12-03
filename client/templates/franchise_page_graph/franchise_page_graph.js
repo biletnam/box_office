@@ -35,7 +35,7 @@ function buildFranchisePageGraph(movieData)  {
         },
 
         title: {
-            text: 'Budget vs spending',
+            text: '',
             x: -80
         },
 

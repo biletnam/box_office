@@ -1,9 +1,28 @@
 <template name="franchisePage">
-
-
-	{{>franchisePageGraph}}
-
-	{{#each movies}}
-		<li>{{movie_title}}</li>
-	{{/each}}
+	<div class="row">
+		<div class="section col s12 m12 l12">
+ 			<h4>{{franchise_title}} Movies</h4>
+ 		<div class="divider"></div>
+		</div>
+		<div class="col s12 m12 l2">
+			<table>
+        		<thead>
+          			<tr>
+              			<th data-field="movie_production_budget">Movies</th>
+          			</tr>
+        		</thead>
+        		<tbody>	
+					{{#each movies}}
+						{{>actorMovieTable}}
+					{{/each}}
+       			</tbody>
+      		</table>
+  		</div>
+		<div class="col s12 m12 l10">
+			{{>franchisePageGraph}}
+		</div>
+	</div>
 </template>
+
+
+
