@@ -1,9 +1,10 @@
 .container {
-	padding-top: 40px
+	padding-top: 20px
 }
 
 #container_franchise_graph {
-	padding-top: 25px
+	padding-top: 15px;
+	
 }
 
 .collection.with-header .collection-header {
@@ -11,6 +12,3 @@
 /*	border-bottom: none !important*/
 }
 
-body {
-	background-color: #fafafa; 
-}

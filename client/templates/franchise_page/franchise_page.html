@@ -4,21 +4,17 @@
  			<h4>{{franchise_title}} Movies</h4>
  		<div class="divider"></div>
 		</div>
-		<div class="col s12 m12 l2">
+		<div class="col s12 m12 l3">
 			<table>
-        		<thead>
-          			<tr>
-              			<th data-field="movie_production_budget">Movies</th>
-          			</tr>
-        		</thead>
         		<tbody>	
 					{{#each movies}}
 						{{>actorMovieTable}}
+						<div class="divider"></div>
 					{{/each}}
        			</tbody>
       		</table>
   		</div>
-		<div class="col s12 m12 l10">
+		<div class="col s12 m12 l9">
 			{{>franchisePageGraph}}
 		</div>
 	</div>
