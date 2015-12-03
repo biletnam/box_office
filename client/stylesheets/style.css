@@ -5,3 +5,12 @@
 #container_franchise_graph {
 	padding-top: 25px
 }
+
+.collection.with-header .collection-header {
+
+/*	border-bottom: none !important*/
+}
+
+body {
+	background-color: #fafafa; 
+}
