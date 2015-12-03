@@ -61,7 +61,6 @@ buildActorGraph = function(actorGraphData)  {
                 valueSuffix: ' M'
             },
             pointPadding: 0.3,
-            // pointPlacement: 0.2,
             yAxis: 1
         }, {
             name: 'Total Domestic Gross',
@@ -72,7 +71,6 @@ buildActorGraph = function(actorGraphData)  {
                 valueSuffix: ' M'
             },
             pointPadding: 0.4,
-            // pointPlacement: 0.2,
             yAxis: 1
         }]
     });
@@ -80,7 +78,7 @@ buildActorGraph = function(actorGraphData)  {
 
 buildFranchisePageGraph = function(movieData)  {
 
-	// var movies = Session.get('franchiseGraphSession')
+
 	var movie_titles = []
 	var production_budgets = []
 	var total_domestic_grosses = []
@@ -158,4 +156,104 @@ buildFranchisePageGraph = function(movieData)  {
 
     });
 
+};
+
+
+buildArea = function(movies) {
+    var areaChartCursor = movies
+    var areaChartContext = "rating"
+    var areaChartData = []
+ 
+    areaChartCursor.forEach(function(movie) {
+        var movieReleaseYear = movie.release_year
+        var inflationYear = Years.findOne({year_int: movieReleaseYear})
+        var inflationRate = inflationYear.inflation_rate
+   
+
+        
+        var dataPoint = {
+            releaseYear: movie.release_year,
+            domesticBoxOfficeTotal: movie.domestic_box_office_total * inflationRate,
+            rating: movie.rating,
+            genre: movie.genre,
+            productionMethod: movie.production_method
+
+
+        };
+        areaChartData.push(dataPoint);
+    });
+
+    var sqldData = alasql('SELECT releaseYear, rating, SUM(domesticBoxOfficeTotal) AS boxOfficeTotal FROM ? GROUP BY releaseYear, rating ORDER BY releaseYear, rating', [areaChartData]); 
+
+    var preppedData =  _.chain(sqldData)
+        .groupBy(areaChartContext)
+        .map(function(value, key) {
+        return {
+            name: key,
+            data: _.pluck(value, 'boxOfficeTotal'),
+            year: _.pluck(value, 'releaseYear')
+        }
+        })
+        .value();
+        
+
+
+    $('#container-area').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'MPAA Rating Distribution Over Time'
+        },
+        subtitle: {
+        },
+        xAxis: {
+            categories: ['1995', 
+            '1996', 
+            '1997', 
+            '1998', 
+            '1999', 
+            '2000', 
+            '2001',
+            '2002',
+            '2003',
+            '2004',
+            '2005',
+            '2006',
+            '2007',
+            '2008',
+            '2009',
+            '2010',
+            '2011',
+            '2012',
+            '2013',
+            '2014'
+             ],
+            tickmarkPlacement: 'on',
+            title: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Percent'
+            }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} millions)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            area: {
+                stacking: 'percent',
+                lineColor: '#ffffff',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#ffffff'
+                }
+            }
+        },
+        series: preppedData
+    });
 };
