@@ -65,6 +65,16 @@ Meteor.publish('franchiseMovies', function(id) {
 
 
 
+// Meteor.publish('batman', function() {
+//   return Movies.find({franchise_id: "gKLy3NbXRnzmkrv7e"});
+// });
+
+// Meteor.publish('spider-man', function() {
+//   return Movies.find({franchise_id: "qkjFAdfX6PJHLaTbx"});
+// });
+
+
+
 
 
 
