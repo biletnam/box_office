@@ -76,8 +76,8 @@ buildActorGraph = function(actorGraphData)  {
     });
 };
 
-buildFranchisePageGraph = function(movieData)  {
-
+buildFranchisePageGraph = function(movieData, div)  {
+     var route = Router.current().route.getName()
 
 	var movie_titles = []
 	var production_budgets = []
@@ -104,7 +104,7 @@ buildFranchisePageGraph = function(movieData)  {
 
      });
 
-    $('#container_franchise_graph').highcharts({
+    $(div).highcharts({
 
         chart: {
             polar: true,
