@@ -407,62 +407,117 @@ buildMonthlyAverageLine = function(movies) {
 
 };
 
-buildPie = function() {
-    Session.get('movie_pie_data')
-    var movie_pie_data = Session.get('movie_pie_data')
-    var year_selected = Session.get('selectedYear')
-    var seriesData = [];
-    
-    movie_pie_data.forEach(function(movie) {
+buildScatter = function() {
+
+    var scatter_session_data = Session.get('scatterPlotData')
+    var scatter_session_data2 = Session.get('scatterPlotData2')
+    var year_1 = Session.get('selectedYearScatter')
+    var year_2 = Session.get('selectedYearScatter2')
+    var scatter_data = []
+    var scatter_data2 = []
+
+
+    scatter_session_data.forEach(function(movie) {
+        var movie_release_year = movie.release_year
+        var inflation_year = Years.findOne({year_int: movie_release_year})
+        var inflation_rate = inflation_year.inflation_rate
         var dataPoint = {
-            genre: movie.genre, 
-            domestic_gross: parseInt(movie.domestic_box_office_total)};
-        seriesData.push(dataPoint);
+            x: movie.domestic_box_office_total * inflation_rate * .000001,
+            y: movie.production_budget * inflation_rate * .000001,
+            movie_title: movie.movie_title,
+            release_year: movie.release_year
+
+        };
+        if (dataPoint.x > 1) {
+
+            scatter_data.push(dataPoint);
+        }
+ 
     });
 
-    var gross = alasql('SELECT genre, SUM(domestic_gross) AS gross FROM ? GROUP BY genre ORDER BY gross DESC', [seriesData]);    
-    
-    final_data = []
+    scatter_session_data2.forEach(function(movie) {
+        var dataPoint = {
+            x: movie.domestic_box_office_total * .000001,
+            y: movie.production_budget * .000001,
+            movie_title: movie.movie_title,
+            release_year: movie.release_year
 
-    for (var i = 0; i < gross.length; i++) {
+        };
+        if (dataPoint.x > 1 ) {
+
+            scatter_data2.push(dataPoint);
+        }
+ 
+    });
 
 
-            final_data.push([gross[i].genre, gross[i].gross]);
+
+    var all_chart_data = [{name: year_1, data: scatter_data}, {name: year_2, data: scatter_data2}]
+
+    $('#container-scatter').highcharts({  
+       
+        chart: {
+            type: 'scatter',
+            plotBorderWidth: 1,
+            zoomType: 'xy'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        title: {
+            text: 'Year Comparison'
+        },
+        legend: {
+            enabled: true
+        },
+
+        xAxis: {
+            gridLineWidth: 1,
+            title: {
+                text: 'Total Domestic Gross'
+            },
+            labels: {
+                format: '{value}'
+            },
+            valuePrefix: '$',
+   
+
+        },
+
+        yAxis: {
+            startOnTick: false,
+            endOnTick: false,
+            title: {
+                text: 'Production Budget'
+            },
+            labels: {
+                format: '{value}'
+            },
+            maxPadding: 0.2,
 
    
-    }
-
-    $('#container-pie').highcharts({
-
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
         },
-        title: {
-            text: year_selected + " Genre Breakdown"
-        },
+
         tooltip: {
-            pointFormat: '<b>{point.percentage:.1f}%</b>'
+            formatter: function() {
+                return '<b>'+ this.point.movie_title +'</b><br>' +
+                'Production Budget: $' + Highcharts.numberFormat(this.y, 0) + ' million' + '<br>' +
+                'Total Domestic Gross: $' + Highcharts.numberFormat(this.x, 0) + ' million'
+}
         },
+
         plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
+            series: {
                 dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    },
-                    connectorColor: 'silver'
+                    enabled: false
                 }
             }
         },
-        series: [{
-            type: 'pie',
-            name: 'genre',
-            data: final_data
-        }]
-    })
-}
+
+        series: all_chart_data
+
+    });
+};
+

@@ -1,11 +1,3 @@
-// Meteor.subscribe('movies');
-// Meteor.subscribe('years');
-// Meteor.subscribe('keywords');
-// Meteor.subscribe('franchises');
-
-
-
-
 Highcharts.setOptions({
     lang: {
         thousandsSep: ','
