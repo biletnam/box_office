@@ -15,6 +15,8 @@ Template.keywords.rendered = function() {
 }
 
 
+
+
 Template.keywords.helpers({
   sort: function() {  
     var sort = Session.get('keywordDropDown')

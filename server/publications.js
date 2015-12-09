@@ -10,8 +10,8 @@ Meteor.publish('actors', function() {
   return Actors.find();
 });
 
-Meteor.publish('franchises', function() {
-  return Franchises.find({franchise_count: {$gt: 2}});
+Meteor.publish('franchises', function(sort) {
+  return Franchises.find({franchise_count: {$gt: 2}}, sort);
 });
 
 
