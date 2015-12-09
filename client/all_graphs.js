@@ -257,3 +257,60 @@ buildArea = function(movies) {
         series: preppedData
     });
 };
+
+buildMinMaxKeyword = function(minMaxData, minMaxCategories, keywordTitle) {
+
+
+        $('#container-min-max').highcharts({
+
+        chart: {
+            type: 'columnrange',
+            inverted: 'true'
+        },
+
+        title: {
+            text: keywordTitle + ' Movie Gross Variation by Year'
+        },
+
+        subtitle: {
+        },
+
+        xAxis: {
+            categories: minMaxCategories
+        },
+
+        yAxis: {
+            title: {
+                text: 'Total Domestic Gross'
+            },
+            min: 0
+        },
+
+        tooltip: {
+            valueDecimals: 2
+        },
+     
+
+        plotOptions: {
+            columnrange: {
+                dataLabels: {
+                    enabled: false,
+                    formatter: function () {
+                        return this.y;
+                    }
+                }
+            }
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Range',
+            data: minMaxData
+        }]
+
+    });
+}
+
