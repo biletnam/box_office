@@ -635,9 +635,30 @@ franchiseMovieCount: function () {
       }
     })
 
+},
+
+franchiseBoxOfficeTotal: function () {
+    var franchises = Franchises.find().fetch()
+
+
+    franchises.forEach(function(franchise) {
+      var movies = Movies.find({franchise: franchise.franchise_title}).fetch()
+          var boxOfficeData = _.pluck(movies, "domestic_box_office_total");
+          var boxOfficeDataSum = _.reduce(boxOfficeData, function(memo, num){ return memo + num; }, 0);
+          console.log(boxOfficeDataSum)
+          Franchises.update(franchise._id,
+          {$set:{
+            total_domestic_box_office: boxOfficeDataSum
+          }
+        })
+    })
+
 }
 
 });
+
+
+
 
         
 

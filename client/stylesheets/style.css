@@ -17,5 +17,12 @@
 	margin-bottom: 0.912rem
 }
 
+#top_head {
+	display: inline-block !important
+}
+
+#not_adjusted {
+	display: inline-block !important
+}
 
 

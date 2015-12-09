@@ -58,6 +58,14 @@ Meteor.publish('topGrossingMovies', function() {
   return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 100});
 });
 
+Meteor.publish('topGrossingMoviesHome', function() {
+  return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 10});
+});
+
+Meteor.publish('topGrossingFranchisesHome', function() {
+  return Franchises.find({}, {sort: {total_domestic_box_office: -1}, limit: 10});
+});
+
 Meteor.publish('franchiseMovies', function(id) {
   check(id, String)
   return Movies.find({franchise_id: id}, {sort: {release_year: 1}});
@@ -72,6 +80,8 @@ Meteor.publish('batman', function() {
 Meteor.publish('spider-man', function() {
   return Movies.find({franchise_id: "qkjFAdfX6PJHLaTbx"});
 });
+
+
 
 
 

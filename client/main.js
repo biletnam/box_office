@@ -10,7 +10,11 @@ Highcharts.setOptions({
 });
 
 
-
+  // Meteor.call('franchiseBoxOfficeTotal', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
 
   // Meteor.call('franchiseMovieCount', function(error, result) {
   //   if (error) {
