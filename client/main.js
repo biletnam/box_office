@@ -9,6 +9,12 @@ Highcharts.setOptions({
     }
 });
 
+  // Meteor.call('actorBoxOfficeTotal', function(error, result) {
+  //   if (error) {
+  //     console.log("error", error);
+  //   };
+  // });
+
 
   // Meteor.call('franchiseBoxOfficeTotal', function(error, result) {
   //   if (error) {

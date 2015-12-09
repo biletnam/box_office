@@ -645,8 +645,27 @@ franchiseBoxOfficeTotal: function () {
       var movies = Movies.find({franchise: franchise.franchise_title}).fetch()
           var boxOfficeData = _.pluck(movies, "domestic_box_office_total");
           var boxOfficeDataSum = _.reduce(boxOfficeData, function(memo, num){ return memo + num; }, 0);
-          console.log(boxOfficeDataSum)
+  
           Franchises.update(franchise._id,
+          {$set:{
+            total_domestic_box_office: boxOfficeDataSum
+          }
+        })
+    })
+
+},
+
+actorBoxOfficeTotal: function () {
+    var actors = Actors.find().fetch()
+
+
+    actors.forEach(function(actor) {
+
+          var movies = Movies.find({actor_ids: {$in: [actor._id]}}).fetch()
+          var boxOfficeData = _.pluck(movies, "domestic_box_office_total");
+          var boxOfficeDataSum = _.reduce(boxOfficeData, function(memo, num){ return memo + num; }, 0);
+          console.log(boxOfficeDataSum)
+          Actors.update(actor._id,
           {$set:{
             total_domestic_box_office: boxOfficeDataSum
           }

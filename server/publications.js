@@ -55,19 +55,23 @@ Meteor.publish('moviesWithKeyword', function(id, sort) {
 
 
 Meteor.publish('topGrossingMovies', function() {
-  return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 100});
+  return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 5});
 });
 
 Meteor.publish('topGrossingMoviesHome', function() {
-  return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 10});
+  return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 5});
 });
 
 Meteor.publish('topGrossingFranchisesHome', function() {
-  return Franchises.find({}, {sort: {total_domestic_box_office: -1}, limit: 10});
+  return Franchises.find({}, {sort: {total_domestic_box_office: -1}, limit: 5});
 });
 
 Meteor.publish('topGrossingKeywordsHome', function() {
-  return Keywords.find({}, {sort: {total_domestic_gross: -1}, limit: 10});
+  return Keywords.find({}, {sort: {total_domestic_gross: -1}, limit: 5});
+});
+
+Meteor.publish('topGrossingActorsHome', function() {
+  return Actors.find({}, {sort: {total_domestic_box_office: -1}, limit: 5});
 });
 
 Meteor.publish('franchiseMovies', function(id) {

@@ -22,45 +22,37 @@
 
 <div class="row">
   <div class="section col s12" id="">
-    <h4 id="top_head">Top Grossing</h4>
+    <h4 id="top_head">Top Domestic Grossing</h4>
     <h6 id="not_adjusted">(Not Adjusted for Inflation)</h6>
   <div class="divider"></div>
 </div>
  <div class="section col s12 m12 l6">
-  <h5>Franchise</h5>
+  <h5>Franchises</h5>
   <div class="divider"></div>
   {{>homeTopFranchises}}
-    <div class="divider"></div>
-  <a href="{{pathFor 'fullListOfFranchises'}}">Top Franchises</a>
-      <div class="divider"></div>
+  <a class="waves-effect waves-light btn home_table_btn" href="{{pathFor 'fullListOfFranchises'}}">Full List of Franchises</a>
+
 </div>
  <div class="section col s12 m12 l6">
-  <h5>Movie</h5>
+  <h5>Movies</h5>
   <div class="divider"></div>
   {{>homeTopMovies}}
-     <div class="divider"></div>
-  <a href="{{pathFor 'fullListOfFranchises'}}">Top Franchises</a>
-      <div class="divider"></div>
+  <a class="waves-effect waves-light btn home_table_btn" href="{{pathFor 'fullListOfFranchises'}}">Top Franchises</a>
 </div>
  <div class="section col s12 m12 l6">
-  <h5>Keyword</h5>
+  <h5>Actors</h5>
+  <div class="divider"></div>
+  {{>homeTopActors}}
+  <a href="#">Top 100 Actors</a>
+</div>
+ <div class="section col s12 m12 l6">
+
+  <h5>Keywords</h5>
   <div class="divider"></div>
   {{>homeTopKeywords}}
   <a href="#">Top 100 Keywords</a>
 </div>
- <div class="section col s12 m12 l6">
-  <h5>Actor</h5>
-  <div class="divider"></div>
-  <a href="#">Top 100 Actors</a>
-</div>
- <div class="section col s12 m12 l6">
-  <h5>Genre</h5>
-  <div class="divider"></div>
-</div>
- <div class="section col s12 m12 l6">
-  <h5>Rating</h5>
-  <div class="divider"></div>
-</div>
+
 
 </div>
 
