@@ -26,7 +26,6 @@ Template.keywords.helpers({
 Template.keywords.events({
   'change #keyword_sort_dropdown': function (e) {
     var route = $(event.target).val();
-    var drop_down_context = $("#keyword_sort_dropdown option:selected").text();
     Router.go(route)
 
   }

@@ -314,3 +314,95 @@ buildMinMaxKeyword = function(minMaxData, minMaxCategories, keywordTitle) {
     });
 }
 
+
+
+buildMonthlyAverageLine = function(movies) {
+
+    var seriesData = []
+
+   movies.forEach(function(movie) {
+        var movieReleaseYear = movie.release_year
+        var inflationYear = Years.findOne({year_int: movieReleaseYear})
+        var inflationRate = inflationYear.inflation_rate
+        var dataPoint = {
+            releaseYear: movie.release_year,
+            releaseMonth: movie.release_month,
+            domesticBoxOfficeTotal: movie.domestic_box_office_total * inflationRate
+        }; 
+        seriesData.push(dataPoint);
+    });
+
+
+
+    var averagedData = alasql('SELECT releaseYear, releaseMonth, AVG(domesticBoxOfficeTotal) AS averageBoxOfficeTotal FROM ? GROUP BY releaseYear, releaseMonth ORDER BY releaseYear, releaseMonth', [seriesData]);  
+
+
+    var stagingYear = _.groupBy(averagedData, 'releaseYear');
+
+
+
+    var monthArray = _.pluck(averagedData, 'averageBoxOfficeTotal', 'releaseYear');
+
+
+
+
+     finalData = []
+
+    for (var key in stagingYear){
+        finalData.push({name: key});
+
+    }
+   
+    var groupedYear =  _.chain(averagedData)
+        .groupBy('releaseYear')
+        .map(function(value, key) {
+        return {
+            name: key,
+            data: _.pluck(value, 'averageBoxOfficeTotal')
+        }
+        })
+        .value();
+
+    var finalLineData = groupedYear
+
+
+    $('#container-line').highcharts({
+
+
+
+        title: {
+            text: 'Monthly Average Gross by Year',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '(Adjusted for Inflation)',
+            x: -20
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Average Gross (USD)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valuePrefix: '$',
+            valueDecimals: 2
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: finalLineData
+    });
+
+};
