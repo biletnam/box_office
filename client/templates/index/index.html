@@ -23,7 +23,7 @@
 <div class="row">
   <div class="section col s12" id="">
     <h4 id="top_head">Top Grossing</h4>
-    <h6 id="not_adjusted"> (Not Adjusted for Inflation)</h6>
+    <h6 id="not_adjusted">(Not Adjusted for Inflation)</h6>
   <div class="divider"></div>
 </div>
  <div class="section col s12 m12 l6">
@@ -38,11 +38,14 @@
   <h5>Movie</h5>
   <div class="divider"></div>
   {{>homeTopMovies}}
-    <div class="divider"></div>
+     <div class="divider"></div>
+  <a href="{{pathFor 'fullListOfFranchises'}}">Top Franchises</a>
+      <div class="divider"></div>
 </div>
  <div class="section col s12 m12 l6">
   <h5>Keyword</h5>
   <div class="divider"></div>
+  {{>homeTopKeywords}}
   <a href="#">Top 100 Keywords</a>
 </div>
  <div class="section col s12 m12 l6">
