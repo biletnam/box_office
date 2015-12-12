@@ -2,6 +2,14 @@ Meteor.publish('movies', function() {
   return Movies.find();
 });
 
+Meteor.publish('allMovies', function(options) {
+  check(options, {
+    sort: Object, 
+    limit: Number
+  });
+  return Movies.find({}, options);
+});
+
 Meteor.publish('years', function() {
   return Years.find();
 });
