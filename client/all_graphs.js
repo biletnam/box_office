@@ -138,10 +138,11 @@ buildFranchisePageGraph = function(movieData, div)  {
         },
 
         legend: {
-            align: 'right',
-            verticalAlign: 'top',
-            y: 100,
-            layout: 'vertical'
+            align: 'center',
+            verticalAlign: 'bottom',
+            x: 25,
+            y: 10,
+            layout: 'horizontal'
         },
 
         series: [{
