@@ -18,6 +18,14 @@ Meteor.publish('actors', function() {
   return Actors.find();
 });
 
+Meteor.publish('allActors', function(options) {
+  check(options, {
+    sort: Object, 
+    limit: Number
+  });
+  return Actors.find({}, options);
+});
+
 Meteor.publish('franchises', function(sort) {
   return Franchises.find({franchise_count: {$gt: 2}}, sort);
 });

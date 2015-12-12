@@ -1,5 +1,6 @@
 
-Template.fullListOfFranchises.rendered = function() {  
+Template.fullListOfFranchises.rendered = function() { 
+
     this.autorun(function () {
       var route = Router.current().route.getName()
       if (route == 'fullListOfFranchises') {
@@ -16,10 +17,6 @@ Template.fullListOfFranchises.rendered = function() {
 };
 
 Template.fullListOfFranchises.helpers({
-	// franchises: function() {
- //   		var franchisesData = Franchises.find({franchise_title: {$not: ""}})
- //        return franchisesData
-	// },
 	sort: function() {  
     	var sort = Session.get('franchiseDropDown')
     	return sort

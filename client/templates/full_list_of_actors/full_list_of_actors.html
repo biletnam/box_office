@@ -1,0 +1,38 @@
+<template name="fullListOfActors">
+<div class="row">
+    <div class="col s6">
+    <h4>Actors</h4>
+    
+  </div>
+    <div class="input-field col s6">
+    <select class="browser-default dropdown_text_color" id="actor_sort_dropdown" name="actor_sort_dropdown">
+      <option value="" disabled selected>{{sort}}</option>
+      <option value='alphaListOfActors'>Alphabetical (A-Z)</option>
+      <option value='grossingListOfActors'>Domestic Box Office (Highest First)</option>
+    </select>
+  </div>
+  <div class="col s12">
+ 	   <table>
+        <thead>
+          <tr>
+              <th data-field="actor">Actor</th>
+              <th data-field="rating">Total Domestic Gross</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+        {{#each actors}}
+   			{{>actorRow}}
+         {{/each}}
+            {{#if nextPath}}
+      <a href="{{nextPath}}">Load more</a>
+      {{#unless ready}}
+        {{> spinner}}
+      {{/unless}}
+      {{/if}}
+        </tbody>
+      </table>
+      </div>
+      </div>    
+</template>
