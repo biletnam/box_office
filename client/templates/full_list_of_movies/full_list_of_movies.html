@@ -5,14 +5,15 @@
     <h4>Movies</h4>
     
   </div>
-<!--     <div class="input-field col s6">
-    <select class="browser-default dropdown_text_color" id="keyword_sort_dropdown" name="keyword_sort_dropdown">
+    <div class="input-field col s6">
+    <select class="browser-default dropdown_text_color" id="movie_sort_dropdown" name="movie_sort_dropdown">
       <option value="" disabled selected>{{sort}}</option>
-      <option value="alphabeticalKeywords">Alphabetical</option>
-      <option value='mostMovies'>Number of Movies (Most First)</option>
-      <option value='topGrossing'>Box Office Gross (Highest First)</option>
+      <option value="alphaListOfMovies">Alphabetical (A-Z)</option>
+      <option value='genreListOfMovies'>Genre (A-Z)</option>
+      <option value='ratingListOfMovies'>Rating (A-Z)</option>
+      <option value='grossingListOfMovies'>Domestic Box Office (Highest First)</option>
     </select>
-  </div> -->
+  </div>
   <div class="col s12">
  	   <table>
         <thead>
@@ -30,7 +31,12 @@
         {{#each movies}}
    			{{>movieTable}}
          {{/each}}
-
+            {{#if nextPath}}
+      <a href="{{nextPath}}">Load more</a>
+      {{#unless ready}}
+        {{> spinner}}
+      {{/unless}}
+      {{/if}}
         </tbody>
       </table>
       </div>
