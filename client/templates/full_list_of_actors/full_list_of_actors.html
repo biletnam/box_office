@@ -25,14 +25,15 @@
         {{#each actors}}
    			{{>actorRow}}
          {{/each}}
-            {{#if nextPath}}
-      <a href="{{nextPath}}">Load more</a>
+
+        </tbody>
+      </table>
+                  {{#if nextPath}}
+        <a class="waves-effect waves-light light-blue darken-2 btn-large" href="{{nextPath}}">Load More</a>
       {{#unless ready}}
         {{> spinner}}
       {{/unless}}
       {{/if}}
-        </tbody>
-      </table>
       </div>
       </div>    
 </template>
