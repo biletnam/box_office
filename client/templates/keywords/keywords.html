@@ -30,6 +30,13 @@
         {{#each keywords}}
    			{{>keywordRow}}
          {{/each}}
+                {{#if nextPath}}
+      <a href="{{nextPath}}">Load more</a>
+      {{#unless ready}}
+        {{> spinner}}
+      {{/unless}}
+      {{/if}}
+
 
         </tbody>
       </table>

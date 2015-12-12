@@ -10,6 +10,14 @@ Meteor.publish('allMovies', function(options) {
   return Movies.find({}, options);
 });
 
+Meteor.publish('allKeywords', function(options) {
+  check(options, {
+    sort: Object, 
+    limit: Number
+  });
+  return Keywords.find({}, options);
+});
+
 Meteor.publish('years', function() {
   return Years.find();
 });
