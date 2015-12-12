@@ -33,3 +33,7 @@
 	float: right;
 	padding-bottom: 10px;
 }
+
+a.collection-item {
+	color: #039be5 !important
+}
