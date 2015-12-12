@@ -22,10 +22,6 @@ Meteor.publish('years', function() {
   return Years.find();
 });
 
-Meteor.publish('actors', function() {
-  return Actors.find();
-});
-
 Meteor.publish('allActors', function(options) {
   check(options, {
     sort: Object, 
@@ -73,13 +69,7 @@ Meteor.publish('actor', function(id) {
 });
 
 Meteor.publish('moviesWithKeyword', function(id, sort) {
-  // check(id, String)
   return Movies.find({keyword_ids: {$in: [id]}}, sort);
-});
-
-
-Meteor.publish('topGrossingMovies', function() {
-  return Movies.find({}, {sort: {domestic_box_office_total: -1}, limit: 5});
 });
 
 Meteor.publish('topGrossingMoviesHome', function() {

@@ -1,9 +1,9 @@
 if (Keywords.find().count() === 0) {
-  var all_movies = Movies.find().fetch();
+  var allMovies = Movies.find().fetch();
   
   var seriesData = [];
     
-  var keywords = _.chain(all_movies)
+  var keywords = _.chain(allMovies)
     .pluck('keyword_array')
     .flatten()
     .uniq()
@@ -23,11 +23,11 @@ if (Keywords.find().count() === 0) {
 
 
 if (Actors.find().count() === 0) {
-  var all_movies = Movies.find().fetch();
+  var allMovies = Movies.find().fetch();
   
   var seriesData = [];
     
-  var actors = _.chain(all_movies)
+  var actors = _.chain(allMovies)
     .pluck('cast_array')
     .flatten()
     .uniq()
@@ -43,9 +43,9 @@ if (Actors.find().count() === 0) {
 
 if (Franchises.find().count() === 0) {
   
-  var all_movies = Movies.find().fetch();
+  var allMovies = Movies.find().fetch();
     
-  var franchises = _.chain(all_movies)
+  var franchises = _.chain(allMovies)
     .pluck('franchise')
     .flatten()
     .uniq()

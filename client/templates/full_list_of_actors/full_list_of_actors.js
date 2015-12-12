@@ -9,6 +9,7 @@ Template.fullListOfActors.rendered = function() {
       }
       
       Session.set('actorDropDown', state)
+
     });
 
 };
